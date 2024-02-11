@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "tech-challenge-fase02"
+version = "0.1.0"
+description = ""
+authors = ["juno@allienware <carlos.vneves@gmail.com>"]
+readme = "README.md"
+packages = [{include = "tech_challenge_fase02", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
