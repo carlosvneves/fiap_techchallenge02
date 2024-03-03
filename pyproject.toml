@@ -11,6 +11,11 @@ python = ">=3.11,<3.12"
 itables = "^1.7.0"
 seaborn = "^0.13.2"
 matplotlib = "^3.8.3"
+pytimetk = "^0.3.0"
+scipy = "^1.12.0"
+prophet = "^1.1.5"
+statsmodels = "^0.14.1"
+pmdarima = "^2.0.4"
 
 
 [tool.poetry.group.dev.dependencies]
