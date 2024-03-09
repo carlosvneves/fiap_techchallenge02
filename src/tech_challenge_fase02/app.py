@@ -1,11 +1,14 @@
+
 import os 
 os.environ["PYCARET_CUSTOM_LOGGING_LEVEL"] = "CRITICAL"
 
-import time 
+import time
+
 import numpy as np
 import pandas as pd
 
 from pycaret.datasets import get_data
+
 from pycaret.time_series import TSForecastingExperiment
 
 
@@ -40,12 +43,45 @@ def eda(y, fh, fold, fig_kwargs):
 
 
 
+def setup() -> tuple:
+    y:pd.DataFrame = get_data("airline", verbose=False)
+    fh:int = 12 #12 meses de forecasting, 3 fold para cross-validation
+    fold:int = 3 
+
+    fig_kwargs = {
+        "renderer": "png",
+        "height": 600,
+        "width": 1000,
+    }
+
+    return y, fh, fold, fig_kwargs
+
+
+def eda(y:pd.Series, fh:int, fold:int, fig_kwargs:dict):
+    eda = TSForecastingExperiment()
+    eda.setup(data=y, fh=fh, fig_kwargs=fig_kwargs)
+    eda.plot_model(plot="ts")
+
+
+
 def main():
+
     print("# Inciando a análise")
     y, fh, fold, fig_kwargs = setup()
-    # eda(y, fh, fold, fig_kwargs)
+   
+    print("** Análise Exploratória **")
+
+    eda(y, fh, fold, fig_kwargs)
+
+
+
+
+
+
+
 
 
 
 if __name__ == "__main__":
-    main()
+
+    main()  

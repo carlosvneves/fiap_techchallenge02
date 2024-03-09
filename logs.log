@@ -1,2 +1,2198 @@
 2024-03-02 10:29:51,365:WARNING:
 'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:34,024:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:34,969:INFO:PyCaret TSForecastingExperiment
+2024-02-24 11:29:34,969:INFO:Logging name: ts-default-name
+2024-02-24 11:29:34,969:INFO:ML Usecase: MLUsecase.TIME_SERIES
+2024-02-24 11:29:34,969:INFO:version 3.3.0
+2024-02-24 11:29:34,969:INFO:Initializing setup()
+2024-02-24 11:29:34,969:INFO:self.USI: bdb4
+2024-02-24 11:29:34,969:INFO:self._variable_keys: {'fold_generator', 'gpu_n_jobs_param', 'USI', 'n_jobs_param', 'X_train_transformed', 'index_type', 'y_train_transformed', 'y_transformed', 'data', 'candidate_sps', 'strictly_positive', 'fh', 'y', 'X_test', 'approach_type', 'model_engines', 'X', 'enforce_pi', 'X_train', 'seed', 'enforce_exogenous', '_ml_usecase', 'pipeline', 'primary_sp_to_use', 'X_transformed', 'exp_name_log', 'significant_sps_no_harmonics', 'exp_id', 'logging_param', 'seasonality_present', 'significant_sps', 'memory', 'gpu_param', 'y_test_transformed', 'exogenous_present', 'y_test', 'fold_param', '_available_plots', 'log_plots_param', 'y_train', 'all_sps_to_use', 'html_param', 'X_test_transformed', 'idx'}
+2024-02-24 11:29:34,970:INFO:Checking environment
+2024-02-24 11:29:34,970:INFO:python_version: 3.11.8
+2024-02-24 11:29:34,970:INFO:python_build: ('tags/v3.11.8:db85d51', 'Feb  6 2024 22:03:32')
+2024-02-24 11:29:34,970:INFO:machine: AMD64
+2024-02-24 11:29:35,001:INFO:platform: Windows-10-10.0.22635-SP0
+2024-02-24 11:29:35,005:INFO:Memory: svmem(total=16897576960, available=3645997056, percent=78.4, used=13251579904, free=3645997056)
+2024-02-24 11:29:35,005:INFO:Physical Core: 8
+2024-02-24 11:29:35,005:INFO:Logical Core: 16
+2024-02-24 11:29:35,005:INFO:Checking libraries
+2024-02-24 11:29:35,005:INFO:System:
+2024-02-24 11:29:35,005:INFO:    python: 3.11.8 (tags/v3.11.8:db85d51, Feb  6 2024, 22:03:32) [MSC v.1937 64 bit (AMD64)]
+2024-02-24 11:29:35,005:INFO:executable: C:\Users\carlo\AppData\Local\pypoetry\Cache\virtualenvs\tech-challenge-fase02-DMjngRAb-py3.11\Scripts\python.exe
+2024-02-24 11:29:35,005:INFO:   machine: Windows-10-10.0.22635-SP0
+2024-02-24 11:29:35,005:INFO:PyCaret required dependencies:
+2024-02-24 11:29:35,078:INFO:                 pip: 24.0
+2024-02-24 11:29:35,078:INFO:          setuptools: 69.1.1
+2024-02-24 11:29:35,078:INFO:             pycaret: 3.3.0
+2024-02-24 11:29:35,078:INFO:             IPython: 8.22.1
+2024-02-24 11:29:35,078:INFO:          ipywidgets: 8.1.2
+2024-02-24 11:29:35,078:INFO:                tqdm: 4.66.2
+2024-02-24 11:29:35,078:INFO:               numpy: 1.26.4
+2024-02-24 11:29:35,078:INFO:              pandas: 2.1.4
+2024-02-24 11:29:35,078:INFO:              jinja2: 3.1.3
+2024-02-24 11:29:35,078:INFO:               scipy: 1.11.4
+2024-02-24 11:29:35,078:INFO:              joblib: 1.3.2
+2024-02-24 11:29:35,078:INFO:             sklearn: 1.4.1.post1
+2024-02-24 11:29:35,078:INFO:                pyod: 1.1.3
+2024-02-24 11:29:35,078:INFO:            imblearn: 0.12.0
+2024-02-24 11:29:35,078:INFO:   category_encoders: 2.6.3
+2024-02-24 11:29:35,078:INFO:            lightgbm: 4.3.0
+2024-02-24 11:29:35,078:INFO:               numba: 0.59.0
+2024-02-24 11:29:35,078:INFO:            requests: 2.31.0
+2024-02-24 11:29:35,078:INFO:          matplotlib: 3.7.5
+2024-02-24 11:29:35,079:INFO:          scikitplot: 0.3.7
+2024-02-24 11:29:35,079:INFO:         yellowbrick: 1.5
+2024-02-24 11:29:35,079:INFO:              plotly: 5.19.0
+2024-02-24 11:29:35,079:INFO:    plotly-resampler: Not installed
+2024-02-24 11:29:35,079:INFO:             kaleido: 0.2.1
+2024-02-24 11:29:35,079:INFO:           schemdraw: 0.15
+2024-02-24 11:29:35,079:INFO:         statsmodels: 0.14.1
+2024-02-24 11:29:35,079:INFO:              sktime: 0.26.0
+2024-02-24 11:29:35,079:INFO:               tbats: 1.1.3
+2024-02-24 11:29:35,079:INFO:            pmdarima: 2.0.4
+2024-02-24 11:29:35,079:INFO:              psutil: 5.9.8
+2024-02-24 11:29:35,079:INFO:          markupsafe: 2.1.5
+2024-02-24 11:29:35,079:INFO:             pickle5: Not installed
+2024-02-24 11:29:35,079:INFO:         cloudpickle: 3.0.0
+2024-02-24 11:29:35,079:INFO:         deprecation: 2.1.0
+2024-02-24 11:29:35,079:INFO:              xxhash: 3.4.1
+2024-02-24 11:29:35,079:INFO:           wurlitzer: Not installed
+2024-02-24 11:29:35,079:INFO:PyCaret optional dependencies:
+2024-02-24 11:29:35,097:INFO:                shap: Not installed
+2024-02-24 11:29:35,097:INFO:           interpret: Not installed
+2024-02-24 11:29:35,097:INFO:                umap: Not installed
+2024-02-24 11:29:35,097:INFO:     ydata_profiling: Not installed
+2024-02-24 11:29:35,097:INFO:  explainerdashboard: Not installed
+2024-02-24 11:29:35,097:INFO:             autoviz: Not installed
+2024-02-24 11:29:35,097:INFO:           fairlearn: Not installed
+2024-02-24 11:29:35,097:INFO:          deepchecks: Not installed
+2024-02-24 11:29:35,097:INFO:             xgboost: Not installed
+2024-02-24 11:29:35,097:INFO:            catboost: Not installed
+2024-02-24 11:29:35,097:INFO:              kmodes: Not installed
+2024-02-24 11:29:35,097:INFO:             mlxtend: Not installed
+2024-02-24 11:29:35,097:INFO:       statsforecast: Not installed
+2024-02-24 11:29:35,097:INFO:        tune_sklearn: Not installed
+2024-02-24 11:29:35,097:INFO:                 ray: Not installed
+2024-02-24 11:29:35,097:INFO:            hyperopt: Not installed
+2024-02-24 11:29:35,097:INFO:              optuna: Not installed
+2024-02-24 11:29:35,097:INFO:               skopt: Not installed
+2024-02-24 11:29:35,097:INFO:              mlflow: Not installed
+2024-02-24 11:29:35,097:INFO:              gradio: Not installed
+2024-02-24 11:29:35,097:INFO:             fastapi: Not installed
+2024-02-24 11:29:35,097:INFO:             uvicorn: Not installed
+2024-02-24 11:29:35,097:INFO:              m2cgen: Not installed
+2024-02-24 11:29:35,097:INFO:           evidently: Not installed
+2024-02-24 11:29:35,098:INFO:               fugue: Not installed
+2024-02-24 11:29:35,098:INFO:           streamlit: Not installed
+2024-02-24 11:29:35,098:INFO:             prophet: Not installed
+2024-02-24 11:29:35,098:INFO:None
+2024-02-24 11:29:35,099:INFO:Set Forecast Horizon.
+2024-02-24 11:29:35,099:INFO:Set up Train-Test Splits.
+2024-02-24 11:29:35,122:INFO:Finished creating preprocessing pipeline.
+2024-02-24 11:29:35,129:INFO:Pipeline: ForecastingPipeline(steps=[('forecaster',
+                            TransformedTargetForecaster(steps=[('model',
+                                                                DummyForecaster())]))])
+2024-02-24 11:29:35,129:INFO:Set up Seasonal Period.
+2024-02-24 11:29:35,139:INFO:Setting the seasonal component type - 'add' or 'mul'.
+2024-02-24 11:29:35,139:INFO:Checking if data is strictly positive.
+2024-02-24 11:29:35,158:INFO:Creating final display dataframe.
+2024-02-24 11:29:35,166:INFO:Setup Display Container:                                          Description                         Value
+0                                         session_id                          7607
+1                                             Target  Number of airline passengers
+2                                           Approach                    Univariate
+3                                Exogenous Variables                   Not Present
+4                                Original data shape                      (144, 1)
+5                             Transformed data shape                      (144, 1)
+6                        Transformed train set shape                      (132, 1)
+7                         Transformed test set shape                       (12, 1)
+8                           Rows with missing values                          0.0%
+9                                     Fold Generator       ExpandingWindowSplitter
+10                                       Fold Number                             3
+11                       Enforce Prediction Interval                         False
+12                   Splits used for hyperparameters                           all
+13                   User Defined Seasonal Period(s)                          None
+14                           Ignore Seasonality Test                         False
+15                        Seasonality Detection Algo                          auto
+16                            Max Period to Consider                            60
+17                         Seasonal Period(s) Tested          [12, 24, 36, 11, 48]
+18                    Significant Seasonal Period(s)          [12, 24, 36, 11, 48]
+19  Significant Seasonal Period(s) without Harmonics                  [48, 36, 11]
+20                                  Remove Harmonics                         False
+21                            Harmonics Order Method                  harmonic_max
+22                          Num Seasonalities to Use                             1
+23                          All Seasonalities to Use                          [12]
+24                               Primary Seasonality                            12
+25                               Seasonality Present                          True
+26                                  Seasonality Type                           mul
+27                          Target Strictly Positive                          True
+28                                Target White Noise                            No
+29                                     Recommended d                             1
+30                            Recommended Seasonal D                             1
+31                                        Preprocess                         False
+32                                          CPU Jobs                            -1
+33                                           Use GPU                         False
+34                                    Log Experiment                         False
+35                                   Experiment Name               ts-default-name
+36                                               USI                          bdb4
+2024-02-24 11:29:35,169:INFO:Engine successfully changes for model 'auto_arima' to 'pmdarima'.
+2024-02-24 11:29:35,261:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,262:INFO:Engine for model 'lr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,262:INFO:Engine for model 'en_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,262:INFO:Engine for model 'ridge_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,262:INFO:Engine for model 'lasso_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,262:INFO:Engine for model 'llar_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,262:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,263:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,264:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,265:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,265:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,265:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,265:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,265:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,265:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,266:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,266:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,266:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,266:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,266:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,266:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,266:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,268:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,268:INFO:Engine for model 'lr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,268:INFO:Engine for model 'en_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,268:INFO:Engine for model 'ridge_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,268:INFO:Engine for model 'lasso_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,268:INFO:Engine for model 'llar_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,269:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,269:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,269:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,270:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,270:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,270:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,271:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,271:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,271:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,271:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,271:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,271:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,271:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,271:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,271:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,271:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,271:INFO:Engine successfully changes for model 'lr_cds_dt' to 'sklearn'.
+2024-02-24 11:29:35,273:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,273:INFO:Engine for model 'en_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,273:INFO:Engine for model 'ridge_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,273:INFO:Engine for model 'lasso_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,274:INFO:Engine for model 'llar_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,274:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,274:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,275:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,275:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,275:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,275:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,276:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,276:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,276:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,276:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,276:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,276:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,276:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,276:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,276:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,276:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,278:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,278:INFO:Engine for model 'en_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,278:INFO:Engine for model 'ridge_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,278:INFO:Engine for model 'lasso_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,279:INFO:Engine for model 'llar_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,279:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,279:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,280:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,280:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,280:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,281:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,281:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,281:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,281:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,281:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,281:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,281:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,281:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,281:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,281:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,282:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,282:INFO:Engine successfully changes for model 'en_cds_dt' to 'sklearn'.
+2024-02-24 11:29:35,283:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,284:INFO:Engine for model 'ridge_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,284:INFO:Engine for model 'lasso_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,284:INFO:Engine for model 'llar_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,284:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,285:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,285:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,285:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,285:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,286:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,286:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,287:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,287:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,287:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,287:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,287:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,287:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,287:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,287:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,287:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,289:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,289:INFO:Engine for model 'ridge_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,289:INFO:Engine for model 'lasso_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,289:INFO:Engine for model 'llar_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,289:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,290:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,290:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,291:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,291:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,291:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,291:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,292:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,292:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,292:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,292:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,292:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,292:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,292:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,292:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,292:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,292:INFO:Engine successfully changes for model 'ridge_cds_dt' to 'sklearn'.
+2024-02-24 11:29:35,294:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,295:INFO:Engine for model 'lasso_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,295:INFO:Engine for model 'llar_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,295:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,295:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,295:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,296:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,296:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,296:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,296:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,296:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,297:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,297:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,297:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,297:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,297:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,297:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,297:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,297:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,299:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,299:INFO:Engine for model 'lasso_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,299:INFO:Engine for model 'llar_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,300:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,300:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,301:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,301:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,301:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,302:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,302:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,302:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,302:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,302:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,302:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,302:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,302:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,303:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,303:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,303:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,303:INFO:Engine successfully changes for model 'lasso_cds_dt' to 'sklearn'.
+2024-02-24 11:29:35,305:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,305:INFO:Engine for model 'llar_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,305:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,305:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,306:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,306:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,306:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,307:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,307:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,307:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,307:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,307:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,307:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,307:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,307:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,308:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,308:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,308:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,309:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,310:INFO:Engine for model 'llar_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,310:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,310:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,311:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,311:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,311:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,312:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,312:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,312:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,312:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,312:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,312:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,312:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,312:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,312:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,312:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,313:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,313:INFO:Engine successfully changes for model 'lar_cds_dt' to 'sklearn'.
+2024-02-24 11:29:35,315:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,315:INFO:Engine for model 'llar_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,315:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,315:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,316:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,317:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,317:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,317:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,317:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,317:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,318:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,318:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,318:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,318:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,318:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,318:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,318:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,318:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,320:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,320:INFO:Engine for model 'llar_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,321:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,321:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,322:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,322:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,322:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,323:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,323:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,323:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,323:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,323:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,323:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,323:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,323:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,323:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,324:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,324:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,324:INFO:Engine successfully changes for model 'llar_cds_dt' to 'sklearn'.
+2024-02-24 11:29:35,326:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,326:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,326:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,327:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,328:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,328:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,328:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,328:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,329:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,329:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,329:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,329:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,329:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,329:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,329:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,329:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,329:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,331:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,331:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,332:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,332:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,333:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,333:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,333:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,333:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,333:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,333:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,333:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,333:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,333:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,333:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,334:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,334:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,334:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,334:INFO:Engine successfully changes for model 'br_cds_dt' to 'sklearn'.
+2024-02-24 11:29:35,336:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,336:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,337:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,338:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,338:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,338:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,338:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,339:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,339:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,339:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,339:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,339:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,339:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,339:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,339:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,339:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,341:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,341:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,342:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,343:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,343:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,343:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,343:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,343:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,343:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,343:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,343:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,343:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,343:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,343:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,343:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,343:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,343:INFO:Engine successfully changes for model 'huber_cds_dt' to 'sklearn'.
+2024-02-24 11:29:35,346:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,347:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,348:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,348:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,348:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,348:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,349:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,349:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,349:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,349:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,349:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,349:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,349:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,349:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,349:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,351:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,352:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,353:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,353:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,353:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,353:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,353:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,353:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,353:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,353:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,353:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,353:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,353:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,353:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,353:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,354:INFO:Engine successfully changes for model 'par_cds_dt' to 'sklearn'.
+2024-02-24 11:29:35,355:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,357:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,357:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,358:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,358:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,358:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,358:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,358:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,358:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,358:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,358:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,358:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,359:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,359:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,359:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,360:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,362:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,362:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,362:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,363:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,363:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,363:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,363:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,363:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,363:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,363:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,363:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,363:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,363:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,363:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,363:INFO:Engine successfully changes for model 'omp_cds_dt' to 'sklearn'.
+2024-02-24 11:29:35,364:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,367:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,367:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,367:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,367:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,367:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,368:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,368:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,368:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,368:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,368:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,368:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,368:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,368:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,370:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,371:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,372:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,372:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,372:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,372:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,372:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,372:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,372:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,372:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,372:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,373:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,373:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,373:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,373:INFO:Engine successfully changes for model 'knn_cds_dt' to 'sklearn'.
+2024-02-24 11:29:35,374:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,376:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,376:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,377:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,377:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,377:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,377:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,377:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,377:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,377:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,377:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,377:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,377:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,379:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,381:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,381:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,381:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,381:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,381:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,382:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,382:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,382:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,382:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,382:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,382:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,382:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,382:INFO:Engine successfully changes for model 'dt_cds_dt' to 'sklearn'.
+2024-02-24 11:29:35,383:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,385:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,386:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,386:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,386:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,386:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,386:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,386:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,386:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,386:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,386:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,386:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,388:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,390:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,390:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,390:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,391:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,391:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,391:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,391:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,391:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,391:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,391:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,391:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,391:INFO:Engine successfully changes for model 'rf_cds_dt' to 'sklearn'.
+2024-02-24 11:29:35,393:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,394:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,394:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,395:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,395:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,395:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,395:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,395:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,396:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,396:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,396:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,397:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,399:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,400:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,400:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,400:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,400:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,400:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,400:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,400:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,400:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,400:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,400:INFO:Engine successfully changes for model 'et_cds_dt' to 'sklearn'.
+2024-02-24 11:29:35,402:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,404:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,404:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,404:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,404:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,404:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,404:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,404:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,404:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,404:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,406:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,409:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,409:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,409:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,409:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,409:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,409:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,410:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,410:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,410:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,410:INFO:Engine successfully changes for model 'gbr_cds_dt' to 'sklearn'.
+2024-02-24 11:29:35,411:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,413:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,414:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,414:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,414:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,414:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,414:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,414:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,414:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,416:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,418:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,418:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,418:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,418:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,418:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,418:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,418:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,418:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,418:INFO:Engine successfully changes for model 'ada_cds_dt' to 'sklearn'.
+2024-02-24 11:29:35,420:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,423:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,423:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,423:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,423:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,423:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,423:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,423:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,425:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,428:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,428:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,428:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,428:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,428:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,428:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,428:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,428:INFO:Engine successfully changes for model 'xgboost_cds_dt' to 'sklearn'.
+2024-02-24 11:29:35,430:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,432:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,432:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,432:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,432:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,432:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,433:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,435:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,437:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,437:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,437:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,437:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,437:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,437:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,438:INFO:Engine successfully changes for model 'lightgbm_cds_dt' to 'sklearn'.
+2024-02-24 11:29:35,439:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,442:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,442:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,442:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,442:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,442:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,443:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,446:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,446:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,446:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:29:35,446:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,446:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,447:INFO:Engine successfully changes for model 'catboost_cds_dt' to 'sklearn'.
+2024-02-24 11:29:35,448:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,450:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,451:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,451:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,451:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,452:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,455:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,455:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,455:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,455:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,457:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,459:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,459:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,459:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,459:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,461:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:29:35,464:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,464:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,464:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,464:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:29:35,465:WARNING:C:\Users\carlo\AppData\Local\pypoetry\Cache\virtualenvs\tech-challenge-fase02-DMjngRAb-py3.11\Lib\site-packages\pycaret\internal\metrics.py:51: FutureWarning: The `needs_threshold` and `needs_proba` parameter are deprecated in version 1.4 and will be removed in 1.6. You can either let `response_method` be `None` or set it to `predict` to preserve the same behaviour.
+  warnings.warn(
+
+2024-02-24 11:29:35,465:INFO:setup() successfully completed in 0.5s...............
+2024-02-24 11:35:58,567:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,322:INFO:PyCaret TSForecastingExperiment
+2024-02-24 11:35:59,322:INFO:Logging name: ts-default-name
+2024-02-24 11:35:59,322:INFO:ML Usecase: MLUsecase.TIME_SERIES
+2024-02-24 11:35:59,322:INFO:version 3.3.0
+2024-02-24 11:35:59,322:INFO:Initializing setup()
+2024-02-24 11:35:59,322:INFO:self.USI: 92f3
+2024-02-24 11:35:59,322:INFO:self._variable_keys: {'_available_plots', 'X_test_transformed', 'html_param', 'gpu_n_jobs_param', 'pipeline', 'log_plots_param', 'X_train', 'exp_id', 'exogenous_present', 'gpu_param', 'all_sps_to_use', 'X_test', 'y_train', 'X_train_transformed', 'memory', 'strictly_positive', '_ml_usecase', 'data', 'seasonality_present', 'significant_sps', 'y_test_transformed', 'candidate_sps', 'enforce_pi', 'logging_param', 'X_transformed', 'fh', 'model_engines', 'y', 'significant_sps_no_harmonics', 'y_transformed', 'y_train_transformed', 'X', 'enforce_exogenous', 'primary_sp_to_use', 'fold_generator', 'fold_param', 'n_jobs_param', 'idx', 'seed', 'y_test', 'index_type', 'USI', 'exp_name_log', 'approach_type'}
+2024-02-24 11:35:59,322:INFO:Checking environment
+2024-02-24 11:35:59,322:INFO:python_version: 3.11.8
+2024-02-24 11:35:59,322:INFO:python_build: ('tags/v3.11.8:db85d51', 'Feb  6 2024 22:03:32')
+2024-02-24 11:35:59,322:INFO:machine: AMD64
+2024-02-24 11:35:59,395:INFO:platform: Windows-10-10.0.22635-SP0
+2024-02-24 11:35:59,398:INFO:Memory: svmem(total=16897576960, available=2918023168, percent=82.7, used=13979553792, free=2918023168)
+2024-02-24 11:35:59,398:INFO:Physical Core: 8
+2024-02-24 11:35:59,398:INFO:Logical Core: 16
+2024-02-24 11:35:59,398:INFO:Checking libraries
+2024-02-24 11:35:59,398:INFO:System:
+2024-02-24 11:35:59,399:INFO:    python: 3.11.8 (tags/v3.11.8:db85d51, Feb  6 2024, 22:03:32) [MSC v.1937 64 bit (AMD64)]
+2024-02-24 11:35:59,399:INFO:executable: C:\Users\carlo\AppData\Local\pypoetry\Cache\virtualenvs\tech-challenge-fase02-DMjngRAb-py3.11\Scripts\python.exe
+2024-02-24 11:35:59,399:INFO:   machine: Windows-10-10.0.22635-SP0
+2024-02-24 11:35:59,399:INFO:PyCaret required dependencies:
+2024-02-24 11:35:59,415:INFO:                 pip: 24.0
+2024-02-24 11:35:59,415:INFO:          setuptools: 69.1.1
+2024-02-24 11:35:59,415:INFO:             pycaret: 3.3.0
+2024-02-24 11:35:59,415:INFO:             IPython: 8.22.1
+2024-02-24 11:35:59,415:INFO:          ipywidgets: 8.1.2
+2024-02-24 11:35:59,415:INFO:                tqdm: 4.66.2
+2024-02-24 11:35:59,415:INFO:               numpy: 1.26.4
+2024-02-24 11:35:59,415:INFO:              pandas: 2.1.4
+2024-02-24 11:35:59,415:INFO:              jinja2: 3.1.3
+2024-02-24 11:35:59,415:INFO:               scipy: 1.11.4
+2024-02-24 11:35:59,415:INFO:              joblib: 1.3.2
+2024-02-24 11:35:59,415:INFO:             sklearn: 1.4.1.post1
+2024-02-24 11:35:59,415:INFO:                pyod: 1.1.3
+2024-02-24 11:35:59,415:INFO:            imblearn: 0.12.0
+2024-02-24 11:35:59,415:INFO:   category_encoders: 2.6.3
+2024-02-24 11:35:59,415:INFO:            lightgbm: 4.3.0
+2024-02-24 11:35:59,415:INFO:               numba: 0.59.0
+2024-02-24 11:35:59,415:INFO:            requests: 2.31.0
+2024-02-24 11:35:59,415:INFO:          matplotlib: 3.7.5
+2024-02-24 11:35:59,415:INFO:          scikitplot: 0.3.7
+2024-02-24 11:35:59,415:INFO:         yellowbrick: 1.5
+2024-02-24 11:35:59,415:INFO:              plotly: 5.19.0
+2024-02-24 11:35:59,415:INFO:    plotly-resampler: Not installed
+2024-02-24 11:35:59,415:INFO:             kaleido: 0.2.1
+2024-02-24 11:35:59,415:INFO:           schemdraw: 0.15
+2024-02-24 11:35:59,415:INFO:         statsmodels: 0.14.1
+2024-02-24 11:35:59,415:INFO:              sktime: 0.26.0
+2024-02-24 11:35:59,415:INFO:               tbats: 1.1.3
+2024-02-24 11:35:59,415:INFO:            pmdarima: 2.0.4
+2024-02-24 11:35:59,415:INFO:              psutil: 5.9.8
+2024-02-24 11:35:59,415:INFO:          markupsafe: 2.1.5
+2024-02-24 11:35:59,415:INFO:             pickle5: Not installed
+2024-02-24 11:35:59,415:INFO:         cloudpickle: 3.0.0
+2024-02-24 11:35:59,415:INFO:         deprecation: 2.1.0
+2024-02-24 11:35:59,415:INFO:              xxhash: 3.4.1
+2024-02-24 11:35:59,415:INFO:           wurlitzer: Not installed
+2024-02-24 11:35:59,415:INFO:PyCaret optional dependencies:
+2024-02-24 11:35:59,425:INFO:                shap: Not installed
+2024-02-24 11:35:59,425:INFO:           interpret: Not installed
+2024-02-24 11:35:59,425:INFO:                umap: Not installed
+2024-02-24 11:35:59,425:INFO:     ydata_profiling: Not installed
+2024-02-24 11:35:59,425:INFO:  explainerdashboard: Not installed
+2024-02-24 11:35:59,425:INFO:             autoviz: Not installed
+2024-02-24 11:35:59,425:INFO:           fairlearn: Not installed
+2024-02-24 11:35:59,426:INFO:          deepchecks: Not installed
+2024-02-24 11:35:59,426:INFO:             xgboost: Not installed
+2024-02-24 11:35:59,426:INFO:            catboost: Not installed
+2024-02-24 11:35:59,426:INFO:              kmodes: Not installed
+2024-02-24 11:35:59,426:INFO:             mlxtend: Not installed
+2024-02-24 11:35:59,426:INFO:       statsforecast: Not installed
+2024-02-24 11:35:59,426:INFO:        tune_sklearn: Not installed
+2024-02-24 11:35:59,426:INFO:                 ray: Not installed
+2024-02-24 11:35:59,426:INFO:            hyperopt: Not installed
+2024-02-24 11:35:59,426:INFO:              optuna: Not installed
+2024-02-24 11:35:59,426:INFO:               skopt: Not installed
+2024-02-24 11:35:59,426:INFO:              mlflow: Not installed
+2024-02-24 11:35:59,426:INFO:              gradio: Not installed
+2024-02-24 11:35:59,426:INFO:             fastapi: Not installed
+2024-02-24 11:35:59,426:INFO:             uvicorn: Not installed
+2024-02-24 11:35:59,426:INFO:              m2cgen: Not installed
+2024-02-24 11:35:59,426:INFO:           evidently: Not installed
+2024-02-24 11:35:59,426:INFO:               fugue: Not installed
+2024-02-24 11:35:59,426:INFO:           streamlit: Not installed
+2024-02-24 11:35:59,426:INFO:             prophet: Not installed
+2024-02-24 11:35:59,426:INFO:None
+2024-02-24 11:35:59,427:INFO:Set Forecast Horizon.
+2024-02-24 11:35:59,427:INFO:Set up Train-Test Splits.
+2024-02-24 11:35:59,450:INFO:Finished creating preprocessing pipeline.
+2024-02-24 11:35:59,452:INFO:Pipeline: ForecastingPipeline(steps=[('forecaster',
+                            TransformedTargetForecaster(steps=[('model',
+                                                                DummyForecaster())]))])
+2024-02-24 11:35:59,452:INFO:Set up Seasonal Period.
+2024-02-24 11:35:59,458:INFO:Setting the seasonal component type - 'add' or 'mul'.
+2024-02-24 11:35:59,458:INFO:Checking if data is strictly positive.
+2024-02-24 11:35:59,477:INFO:Creating final display dataframe.
+2024-02-24 11:35:59,485:INFO:Setup Display Container:                                          Description                         Value
+0                                         session_id                          8680
+1                                             Target  Number of airline passengers
+2                                           Approach                    Univariate
+3                                Exogenous Variables                   Not Present
+4                                Original data shape                      (144, 1)
+5                             Transformed data shape                      (144, 1)
+6                        Transformed train set shape                      (132, 1)
+7                         Transformed test set shape                       (12, 1)
+8                           Rows with missing values                          0.0%
+9                                     Fold Generator       ExpandingWindowSplitter
+10                                       Fold Number                             3
+11                       Enforce Prediction Interval                         False
+12                   Splits used for hyperparameters                           all
+13                   User Defined Seasonal Period(s)                          None
+14                           Ignore Seasonality Test                         False
+15                        Seasonality Detection Algo                          auto
+16                            Max Period to Consider                            60
+17                         Seasonal Period(s) Tested          [12, 24, 36, 11, 48]
+18                    Significant Seasonal Period(s)          [12, 24, 36, 11, 48]
+19  Significant Seasonal Period(s) without Harmonics                  [48, 36, 11]
+20                                  Remove Harmonics                         False
+21                            Harmonics Order Method                  harmonic_max
+22                          Num Seasonalities to Use                             1
+23                          All Seasonalities to Use                          [12]
+24                               Primary Seasonality                            12
+25                               Seasonality Present                          True
+26                                  Seasonality Type                           mul
+27                          Target Strictly Positive                          True
+28                                Target White Noise                            No
+29                                     Recommended d                             1
+30                            Recommended Seasonal D                             1
+31                                        Preprocess                         False
+32                                          CPU Jobs                            -1
+33                                           Use GPU                         False
+34                                    Log Experiment                         False
+35                                   Experiment Name               ts-default-name
+36                                               USI                          92f3
+2024-02-24 11:35:59,490:INFO:Engine successfully changes for model 'auto_arima' to 'pmdarima'.
+2024-02-24 11:35:59,513:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,513:INFO:Engine for model 'lr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,513:INFO:Engine for model 'en_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,513:INFO:Engine for model 'ridge_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,515:INFO:Engine for model 'lasso_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,515:INFO:Engine for model 'llar_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,515:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,515:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,516:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,516:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,516:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,516:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,517:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,517:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,518:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,518:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,518:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,518:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,518:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,518:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,518:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,518:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,520:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,520:INFO:Engine for model 'lr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,520:INFO:Engine for model 'en_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,520:INFO:Engine for model 'ridge_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,521:INFO:Engine for model 'lasso_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,521:INFO:Engine for model 'llar_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,521:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,521:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,522:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,522:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,523:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,523:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,523:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,523:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,523:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,523:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,524:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,524:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,524:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,524:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,524:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,524:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,524:INFO:Engine successfully changes for model 'lr_cds_dt' to 'sklearn'.
+2024-02-24 11:35:59,526:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,526:INFO:Engine for model 'en_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,526:INFO:Engine for model 'ridge_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,527:INFO:Engine for model 'lasso_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,527:INFO:Engine for model 'llar_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,527:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,527:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,528:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,528:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,529:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,529:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,529:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,529:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,529:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,529:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,529:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,529:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,529:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,530:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,530:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,530:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,531:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,531:INFO:Engine for model 'en_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,532:INFO:Engine for model 'ridge_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,532:INFO:Engine for model 'lasso_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,532:INFO:Engine for model 'llar_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,532:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,532:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,533:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,533:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,533:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,533:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,534:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,534:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,534:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,535:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,535:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,535:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,535:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,535:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,535:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,535:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,535:INFO:Engine successfully changes for model 'en_cds_dt' to 'sklearn'.
+2024-02-24 11:35:59,536:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,536:INFO:Engine for model 'ridge_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,536:INFO:Engine for model 'lasso_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,537:INFO:Engine for model 'llar_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,537:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,537:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,537:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,538:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,538:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,538:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,539:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,539:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,539:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,539:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,539:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,539:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,539:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,539:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,539:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,539:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,541:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,542:INFO:Engine for model 'ridge_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,542:INFO:Engine for model 'lasso_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,542:INFO:Engine for model 'llar_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,543:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,543:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,543:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,545:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,545:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,545:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,545:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,545:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,545:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,546:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,546:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,546:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,546:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,546:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,546:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,546:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,546:INFO:Engine successfully changes for model 'ridge_cds_dt' to 'sklearn'.
+2024-02-24 11:35:59,547:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,548:INFO:Engine for model 'lasso_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,548:INFO:Engine for model 'llar_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,548:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,548:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,549:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,549:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,550:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,550:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,550:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,550:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,550:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,551:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,551:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,551:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,551:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,551:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,551:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,551:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,552:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,553:INFO:Engine for model 'lasso_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,553:INFO:Engine for model 'llar_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,553:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,553:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,553:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,554:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,555:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,555:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,555:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,555:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,555:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,555:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,555:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,555:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,556:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,556:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,556:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,556:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,556:INFO:Engine successfully changes for model 'lasso_cds_dt' to 'sklearn'.
+2024-02-24 11:35:59,557:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,558:INFO:Engine for model 'llar_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,559:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,559:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,560:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,561:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,561:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,561:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,561:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,561:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,562:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,562:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,562:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,562:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,562:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,562:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,562:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,562:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,564:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,565:INFO:Engine for model 'llar_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,565:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,565:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,568:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,570:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,570:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,571:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,571:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,571:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,571:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,572:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,572:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,572:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,572:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,572:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,572:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,572:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,572:INFO:Engine successfully changes for model 'lar_cds_dt' to 'sklearn'.
+2024-02-24 11:35:59,575:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,575:INFO:Engine for model 'llar_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,575:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,575:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,576:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,577:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,577:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,577:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,578:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,578:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,578:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,578:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,578:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,578:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,578:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,578:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,578:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,578:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,580:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,580:INFO:Engine for model 'llar_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,581:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,581:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,582:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,582:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,583:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,583:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,583:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,583:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,583:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,583:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,583:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,583:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,583:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,584:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,584:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,584:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,584:INFO:Engine successfully changes for model 'llar_cds_dt' to 'sklearn'.
+2024-02-24 11:35:59,584:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,585:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,585:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,586:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,586:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,586:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,587:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,587:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,587:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,587:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,587:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,587:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,587:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,587:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,587:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,588:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,588:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,590:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,590:INFO:Engine for model 'br_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,591:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,591:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,592:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,592:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,592:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,592:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,592:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,593:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,593:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,593:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,593:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,593:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,593:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,593:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,593:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,593:INFO:Engine successfully changes for model 'br_cds_dt' to 'sklearn'.
+2024-02-24 11:35:59,594:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,595:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,595:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,597:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,597:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,597:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,597:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,597:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,597:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,597:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,597:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,597:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,597:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,598:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,598:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,598:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,599:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,600:INFO:Engine for model 'huber_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,601:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,601:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,601:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,601:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,602:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,602:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,602:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,602:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,602:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,602:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,602:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,602:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,602:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,602:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,602:INFO:Engine successfully changes for model 'huber_cds_dt' to 'sklearn'.
+2024-02-24 11:35:59,603:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,605:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,606:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,606:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,606:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,607:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,607:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,607:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,607:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,607:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,607:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,607:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,607:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,607:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,607:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,609:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,610:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,611:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,611:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,611:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,611:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,611:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,612:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,612:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,612:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,612:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,612:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,612:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,612:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,612:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,612:INFO:Engine successfully changes for model 'par_cds_dt' to 'sklearn'.
+2024-02-24 11:35:59,614:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,615:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,615:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,617:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,617:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,617:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,617:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,617:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,617:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,617:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,617:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,618:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,618:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,618:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,618:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,619:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,621:INFO:Engine for model 'omp_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,622:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,622:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,622:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,622:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,623:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,623:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,623:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,623:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,623:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,623:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,623:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,623:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,623:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,623:INFO:Engine successfully changes for model 'omp_cds_dt' to 'sklearn'.
+2024-02-24 11:35:59,624:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,626:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,626:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,626:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,627:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,627:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,627:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,627:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,627:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,627:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,627:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,627:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,627:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,627:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,629:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,631:INFO:Engine for model 'knn_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,631:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,631:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,631:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,631:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,632:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,632:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,632:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,632:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,632:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,632:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,632:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,632:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,632:INFO:Engine successfully changes for model 'knn_cds_dt' to 'sklearn'.
+2024-02-24 11:35:59,634:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,637:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,637:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,637:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,637:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,637:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,637:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,637:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,637:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,637:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,638:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,638:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,638:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,639:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,641:INFO:Engine for model 'dt_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,641:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,642:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,642:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,642:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,642:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,642:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,642:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,642:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,642:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,642:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,642:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,642:INFO:Engine successfully changes for model 'dt_cds_dt' to 'sklearn'.
+2024-02-24 11:35:59,643:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,646:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,647:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,647:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,647:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,647:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,647:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,647:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,647:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,647:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,647:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,647:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,649:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,651:INFO:Engine for model 'rf_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,651:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,652:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,652:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,652:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,652:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,652:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,652:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,652:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,652:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,652:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,652:INFO:Engine successfully changes for model 'rf_cds_dt' to 'sklearn'.
+2024-02-24 11:35:59,653:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,656:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,656:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,656:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,656:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,656:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,656:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,656:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,657:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,657:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,657:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,658:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,660:INFO:Engine for model 'et_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,660:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,661:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,661:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,661:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,661:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,661:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,661:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,661:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,661:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,661:INFO:Engine successfully changes for model 'et_cds_dt' to 'sklearn'.
+2024-02-24 11:35:59,663:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,666:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,666:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,666:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,666:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,666:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,666:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,666:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,666:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,666:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,668:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,670:INFO:Engine for model 'gbr_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,670:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,671:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,671:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,671:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,671:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,671:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,671:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,671:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,671:INFO:Engine successfully changes for model 'gbr_cds_dt' to 'sklearn'.
+2024-02-24 11:35:59,672:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,674:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,674:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,675:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,675:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,675:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,675:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,675:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,675:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,677:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,679:INFO:Engine for model 'ada_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,679:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,679:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,679:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,679:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,679:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,680:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,680:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,680:INFO:Engine successfully changes for model 'ada_cds_dt' to 'sklearn'.
+2024-02-24 11:35:59,681:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,683:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,683:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,683:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,683:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,685:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,685:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,685:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,686:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,689:INFO:Engine for model 'xgboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,689:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,689:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,689:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,689:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,689:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,689:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,689:INFO:Engine successfully changes for model 'xgboost_cds_dt' to 'sklearn'.
+2024-02-24 11:35:59,690:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,693:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,693:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,693:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,693:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,693:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,693:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,695:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,697:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,697:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,697:INFO:Engine for model 'lightgbm_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,697:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,697:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,697:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,697:INFO:Engine successfully changes for model 'lightgbm_cds_dt' to 'sklearn'.
+2024-02-24 11:35:59,699:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,701:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,701:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,702:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,702:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,702:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,703:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,706:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,706:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,706:INFO:Engine for model 'catboost_cds_dt' has not been set explicitly, hence returning None.
+2024-02-24 11:35:59,706:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,706:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,706:INFO:Engine successfully changes for model 'catboost_cds_dt' to 'sklearn'.
+2024-02-24 11:35:59,707:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,710:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,710:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,710:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,710:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,712:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,715:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,715:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,715:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,715:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,717:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,719:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,719:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,720:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,720:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,721:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
+2024-02-24 11:35:59,725:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,725:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,725:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-24 11:35:59,725:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`

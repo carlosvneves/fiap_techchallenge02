@@ -3041,6 +3041,7 @@ nativelib = ["pyobjc-framework-Cocoa", "pywin32"]
 objc = ["pyobjc-framework-Cocoa"]
 win32 = ["pywin32"]
 
+
 [[package]]
 name = "setuptools"
 version = "69.1.1"
@@ -3057,6 +3058,7 @@ docs = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "pygments
 testing = ["build[virtualenv]", "filelock (>=3.4.0)", "flake8-2020", "ini2toml[lite] (>=0.9)", "jaraco.develop (>=7.21)", "jaraco.envs (>=2.2)", "jaraco.path (>=3.2.0)", "packaging (>=23.2)", "pip (>=19.1)", "pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=2.2)", "pytest-home (>=0.5)", "pytest-mypy (>=0.9.1)", "pytest-perf", "pytest-ruff (>=0.2.1)", "pytest-timeout", "pytest-xdist", "tomli-w (>=1.0.0)", "virtualenv (>=13.0.0)", "wheel"]
 testing-integration = ["build[virtualenv] (>=1.0.3)", "filelock (>=3.4.0)", "jaraco.envs (>=2.2)", "jaraco.path (>=3.2.0)", "packaging (>=23.2)", "pytest", "pytest-enabler", "pytest-xdist", "tomli", "virtualenv (>=13.0.0)", "wheel"]
 
+eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee<<<<<<< local
 [[package]]
 name = "six"
 version = "1.16.0"
@@ -3473,3 +3475,4 @@ viz = ["matplotlib", "nc-time-axis", "seaborn"]
 lock-version = "2.0"
 python-versions = ">=3.11,<3.12"
 content-hash = "b4149df33e73fa4c08638339c51743ca042d811d4e9247adc4a0152ff368121b"
+
