@@ -1,3 +1,5 @@
+2024-03-02 10:29:51,365:WARNING:
+'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
 2024-02-24 11:29:34,024:WARNING:
 'prophet' is a soft dependency and not included in the pycaret installation. Please run: `pip install prophet` to install.
 2024-02-24 11:29:34,969:INFO:PyCaret TSForecastingExperiment
@@ -2194,7 +2196,3 @@ Alternately, you can install this by running `pip install pycaret[models]`
 2024-02-24 11:35:59,725:WARNING:
 'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
 Alternately, you can install this by running `pip install pycaret[models]`
-2024-02-24 11:35:59,725:WARNING:C:\Users\carlo\AppData\Local\pypoetry\Cache\virtualenvs\tech-challenge-fase02-DMjngRAb-py3.11\Lib\site-packages\pycaret\internal\metrics.py:51: FutureWarning: The `needs_threshold` and `needs_proba` parameter are deprecated in version 1.4 and will be removed in 1.6. You can either let `response_method` be `None` or set it to `predict` to preserve the same behaviour.
-  warnings.warn(
-
-2024-02-24 11:35:59,726:INFO:setup() successfully completed in 0.4s...............

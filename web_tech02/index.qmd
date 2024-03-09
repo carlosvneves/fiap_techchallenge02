@@ -1,0 +1,67 @@
+---
+title: "web_tech02"
+---
+```{r import_libs}
+#| echo: false
+#| message: false
+#| warning: false
+
+source('utils.R')
+```
+
+```{css, echo = FALSE}
+.justify {
+  text-align: justify !important
+}
+```
+
+# Introdução {#sec-intro}
+
+::: {style="text-align: justify"}
+
+**Descrição do Problema**:
+
+Desenvolver um modelo preditivo com os dados da Ibovespa para criar uma série temporal e prever diariamente o índice 
+de fechamento da base.
+
+**Base de dados:**
+
+Índices diários da Ibovespa disponíveis no sítio da [investing](https://br.investing.com/indices/bovespa-historical-data),
+de janeiro de 2010 a fevereiro de 2023.
+
+**Requisitos: **
+
+- Modelo com storytelling, desde a captura do dado até a entrega do modelo;
+- Justificar a(s) técnica(s) utilizada(s);
+- Atingir um nível de acurácia acima de 70%.
+
+:::
+
+
+```{r}
+#|echo: false
+#|message: false
+#|warning: false
+
+# leitura do arquivo de dados  
+ibovespa <- read_csv("C:/projects/alura_postech/fiap_techchallenge02/data/Ibovespa_20100101-20240224.csv") |> 
+    mutate(Data = as.Date(Data, format = "%d.%m.%Y"))
+# renomeia as colunas
+colnames(ibovespa) <- c('date', 'close', 'open', 'max', 'min','vol', 'var')
+
+# imprime a tabela de dados
+DT::datatable(ibovespa, filter = "bottom", 
+                          colnames = colnames(ibovespa),
+                          # caption = header, 
+                          extensions = 'Buttons', 
+                          options = list(
+                              dom = 'Bfrtip',
+                              buttons = c('copy','excel', 'csv', 'pdf')
+                          )) |>
+                DT::formatDate(columns = c('date'), 'toLocaleDateString') |>
+                DT::formatRound(columns = c('close', 'open', 'max', 'min'),
+                                mark = ".",
+                                dec.mark = ",") 
+```
+
+

@@ -2,13 +2,25 @@
 name = "tech-challenge-fase02"
 version = "0.1.0"
 description = ""
-authors = ["juno@allienware <carlos.vneves@gmail.com>"]
+authors = ["Carlos Eduardo Veras Neves <carlos.vneves@gmail.com>"]
 readme = "README.md"
 packages = [{include = "tech_challenge_fase02", from = "src"}]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = ">=3.11,<3.12"
+itables = "^1.7.0"
+seaborn = "^0.13.2"
+matplotlib = "^3.8.3"
+pytimetk = "^0.3.0"
+scipy = "^1.12.0"
+prophet = "^1.1.5"
+statsmodels = "^0.14.1"
+pmdarima = "^2.0.4"
 
+
+[tool.poetry.group.dev.dependencies]
+ipython = "^8.22.1"
+jupyterlab = "^4.1.2"
 
 [build-system]
 requires = ["poetry-core"]

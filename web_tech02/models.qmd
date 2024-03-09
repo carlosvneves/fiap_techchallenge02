@@ -1,0 +1,248 @@
+---
+code-fold: true
+editor: 
+  markdown: 
+    wrap: sentence
+tbl-cap-location: bottom
+prefer-html: true
+---
+
+```{css, echo = FALSE}
+.justify {
+  text-align: justify !important
+}
+```
+
+```{r import_libs}
+#| echo: false
+#| message: false
+#| warning: false
+
+source('utils.R')
+
+```
+
+
+# Modelagem e previsão
+
+## Modelos
+::: {style="text-align: justify"}
+
+teste
+
+::: 
+
+## Previsão
+::: {style="text-align: justify"}
+teste
+
+::: 
+
+## Divisão entre teste e treino
+```{r}
+# divide entre teste e treino
+
+close_data <- close_clean |> mutate(id="close", .before = 'date')
+
+splits <- initial_time_split(close_data, prop = 0.85)
+
+```
+
+## Criação e ajuste de múltiplos modelos
+
+### AUTO-ARIMA 
+```{r}
+model_fit_arima_no_boost <- arima_reg(
+        # ARIMA args
+        #seasonal_period = "7 days" ,
+        seasonal_period = "auto" ,
+        non_seasonal_ar = 5,
+        non_seasonal_differences = 1,
+        non_seasonal_ma = 1,
+        seasonal_ar     = 5,
+        seasonal_differences = 5,
+        seasonal_ma     = 5,
+) |> 
+    set_engine(engine = "auto_arima") |> 
+    fit(close ~ date, data = training(splits))
+
+```
+
+### AUTO-ARIMA (Boost) 
+```{r}
+model_fit_arima_boost <- arima_boost(
+    # ARIMA args
+        mode = "regression",
+        seasonal_period = "auto" ,
+        non_seasonal_ar = 5,
+        non_seasonal_differences = 1,
+        non_seasonal_ma = 1,
+        seasonal_ar     = 5,
+        seasonal_differences = 5,
+        seasonal_ma     = 5,
+        
+
+    # XGBoost Args
+    trees = 7,
+    tree_depth = 7, 
+    learn_rate = 0.05) |> 
+    set_engine(engine = "auto_arima_xgboost") |> 
+    fit(close ~ date + as.numeric(date) + month(date, label=T), 
+        data = training(splits))
+
+```
+
+### Exponential Smoothing
+```{r}
+model_fit_ets <- exp_smoothing(trend = "additive", 
+                               season = "auto", 
+                               smooth_level = 0.3, 
+                               smooth_trend = 0.15) |> 
+    set_engine(engine = "ets")  |> 
+    fit(close ~ date, data = training(splits))
+```
+
+### Prophet
+
+```{r}
+model_fit_prophet <- prophet_reg(seasonality_weekly = "auto", 
+                                 seasonality_daily = T,
+                                 seasonality_yearly = "auto",
+                                 prior_scale_seasonality = 0.075,
+                                 prior_scale_changepoints = 0.5,
+                                 changepoint_range = 0.9
+                                 # modelar covid19
+                                 ) |> 
+    set_engine(engine = "prophet") |> 
+    fit(close ~ date, data = training(splits))
+```
+
+
+### Linear Regression (Parsip)
+```{r}
+model_fit_lm <- linear_reg() |> 
+    set_engine("lm") |> 
+    fit(close ~ as.numeric(date) + factor(month(date, label = TRUE), ordered = FALSE),
+        data = training(splits))
+```
+
+### Multivariate Adaptative Regression Splines
+```{r}
+model_spec_mars <- mars(mode = "regression",  num_terms = 2, prod_degree = 2) |> 
+    set_engine("earth", ) 
+
+recipe_spec <- recipe(close ~ date, data = training(splits)) |> 
+    step_timeseries_signature(date) |> 
+    step_date(date, features = "doy", ordinal = FALSE) |> 
+    step_mutate(date_num = as.numeric(date)) |> 
+    step_normalize(date_num) |> 
+    step_fourier(date, period = c(252/4, 252), K = 5) |> 
+    step_rm(date) #|>  
+    # step_dummy(contains("lbl"), one_hot = TRUE) 
+bake(prep(recipe_spec), new_data = training(splits))
+
+juice(prep(recipe_spec))
+
+wflw_fit_mars <- workflow() |> 
+    add_recipe(recipe_spec) |> 
+    add_model(model_spec_mars) |> 
+    fit(training(splits))
+```
+
+
+### Multivariate Adaptative Regression Splines
+```{r}
+model_spec_glmnet <- linear_reg(
+    mode = "regression", 
+    penalty = 0.15
+) |> set_engine("glmnet")
+
+recipe_spec_timeseries <- recipe(close ~ date, data = training(splits)) |> 
+    step_timeseries_signature(date) 
+
+
+recipe_spec_final <- recipe_spec_timeseries |> 
+    step_fourier(date, period = c(252/4, 252), K = 3) %>%
+    step_rm(date) %>%
+    step_rm(contains("iso"), contains("minute"), contains("hour"),
+            contains("am.pm"), contains("xts")) %>%
+    step_normalize(contains("index.num"), date_year) %>%
+    step_dummy(contains("lbl"), one_hot = TRUE) 
+
+juice(prep(recipe_spec_final))
+
+wflw_fit_glmnet <- workflow() |> 
+    add_recipe(recipe_spec_final) |> 
+    add_model(model_spec_glmnet) |> 
+    fit(training(splits))
+```
+
+
+
+## Sumário dos modelos
+```{r}
+models_tbl <- modeltime_table(
+    model_fit_arima_no_boost,
+    model_fit_arima_boost,
+    model_fit_ets,
+    model_fit_prophet,
+    model_fit_lm,
+    wflw_fit_mars,
+    wflw_fit_glmnet
+    
+)
+
+models_tbl
+```
+
+## Calibração dos modelos aos dados de teste
+
+```{r}
+
+calibration_tbl <- models_tbl %>%
+    modeltime_calibrate(new_data = testing(splits))
+calibration_tbl
+```
+
+
+## Testando as previsões e avaliação de acurácia
+
+### Visualização do teste de previsão
+```{r}
+
+calibration_tbl |> 
+    modeltime_forecast(new_data = testing(splits), actual_data = close_clean) |> 
+    plot_modeltime_forecast(
+         .interactive = T
+         )
+```
+### Medição de acurácia
+
+```{r}
+calibration_tbl %>%
+    modeltime_accuracy() %>%
+    table_modeltime_accuracy(
+        .interactive = F
+    )
+```
+
+### Refit para o dataset completo e previsão fora-da-amostra
+
+```{r}
+refit_tbl <- calibration_tbl %>%
+    modeltime_refit(data = close_clean)
+
+refit_tbl %>%
+    modeltime_forecast(h = "30 days", actual_data = close_clean) %>%
+    plot_modeltime_forecast(
+      .interactive      = T
+    )
+```
+
+
+```{r}
+
+refit_tbl |> modeltime_accuracy()
+
+```
+
