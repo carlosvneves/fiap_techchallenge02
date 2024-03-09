@@ -1,0 +1,309 @@
+---
+code-fold: true
+editor: 
+  markdown: 
+    wrap: sentence
+tbl-cap-location: bottom
+prefer-html: true
+---
+
+```{css, echo = FALSE}
+.justify {
+  text-align: justify !important
+}
+```
+
+```{r import_libs}
+#| echo: false
+#| message: false
+#| warning: false
+
+source('utils.R')
+
+```
+
+# Análise exploratória e visualização
+
+## Visualização da série original e regularização
+
+::: {style="text-align: justify"}
+
+Análise dos dados somente de fechamento do Ibovespa.
+
+
+```{r}
+close_df <- ibovespa |> select(c(date, close)) |> filter(date < '2024-02-01')
+
+# série temporal completa
+close_df |> plot_time_series(date, close, 
+                             .interactive = T, 
+                             .plotly_slider = T, 
+                             .title = "Ibovespa - fechamento")
+```
+
+A série temporal precisa ser regularizada, uma vez que esta possui dados somente para os dias em que o pregão ocorreu. 
+Como os modelos de séries temporais lidam melhor com dados regulares, será empregado um algoritmo de regualazição (qual e o que ele faz?) para preencher tais lacunas. 
+
+O resultado está na tabela a seguir.
+ 
+```{r}
+
+# regularização para evitar descontinuidades por dias sem pregão
+close_reg <- close_df |> 
+    pad_by_time(date, .by = "auto") |> 
+    mutate_at(vars(close), .funs = ts_impute_vec, period = 1)
+
+close_reg |> plot_time_series(date, close, .interactive = T, .plotly_slider = T, .title = 'Ibovespa regularizado')
+
+# imprime a tabela de dados
+DT::datatable(close_reg, filter = "bottom", 
+                          colnames = colnames(close_df),
+                          # caption = header, 
+                          extensions = 'Buttons', 
+                          options = list(
+                              dom = 'Bfrtip',
+                              buttons = c('copy','excel', 'csv', 'pdf')
+                          )) |>
+                DT::formatDate(columns = c('date'), 'toLocaleDateString') |>
+                DT::formatRound(columns = c('close'),
+                                mark = ".",
+                                dec.mark = ",") 
+
+
+```
+
+:::
+
+
+## Mediana para 7 dias e Médias-móveis do Ibovespa para 15 e 30 dias
+
+::: {style="text-align: justify"}
+
+Mediana para 7 dias.
+
+```{r}
+# índice mediano por semana
+close_7d <- close_reg |> 
+    summarise_by_time(date, .by = "week", median_7d = mean(close)) 
+
+close_7d |> 
+    plot_time_series(date, median_7d,.interactive=T, .title = 'Ibovespa fechamento - mediana semanal')
+
+```
+
+```{r}
+
+kable(summary(close_7d)) |> 
+  kable_styling(full_width = FALSE, position = "center") %>%
+  column_spec(1, bold = TRUE) 
+
+```
+
+Média-Móvel para 15 e 30 dias.
+
+```{r}
+# média móvel de 15 dias
+roll_avg_15d <- slidify(.f =  mean, .period = 15, .align = "center", .partial = T)
+
+# média móvel de 30 dias
+roll_avg_30d <- slidify(.f =  mean, .period = 30, .align = "center", .partial = T)
+
+close_reg |> mutate(rolling_avg_15d = roll_avg_15d(close), rolling_avg_30d = roll_avg_30d(close)) |> 
+     tidyr::pivot_longer(cols = c(close, rolling_avg_15d, rolling_avg_30d)) |> 
+     plot_time_series(date, value, .color_var = name,
+                     .interactive = T, 
+                     .smooth = F,
+                     .title = 'Ibovespa - índice diário, média-móvel de 15 dias, média-móvel de 30 dias')
+
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: tbl-roll_avg
+#| tbl-cap: "Datas coincidentes no processo de identificação de anomalias." 
+#| 
+roll_avg <- close_reg |> mutate(rolling_avg_15d = roll_avg_15d(close), rolling_avg_30d = roll_avg_30d(close)) 
+
+
+kable(cbind( summary(roll_avg),summary(close_7d))) |> 
+  kable_styling(full_width = FALSE, position = "center") %>%
+  column_spec(1, bold = TRUE) 
+```
+
+:::
+
+## Caracterização do processo gerador de dados da série-temporal
+
+### Detecção de anomalias e _changepoints_
+
+::: {style="text-align: justify"}
+
+O primeiro passo para a detecção de anomalias é a decomposição da série em suas componentes de tendência e sazonalidade, além de podermos também verificar os resíduos das séries. 
+
+Os gráficos da @fig-decomp mostra que existe um forte componente sazonal atuando e a tendência é crescente.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-decomp
+#| fig-cap: 'Decomposição da série temporal'
+
+anomalize_close_reg <-  close_reg |>  
+                                          timetk::anomalize(
+                                              .date_var      = date, 
+                                              .value         = close,
+                                              .iqr_alpha     = 0.05,
+                                              .max_anomalies = 0.20,
+                                              .message       = FALSE
+                                          )
+        
+anomalize_close_reg |> timetk::plot_anomalies_decomp(.date_var = date,
+                                                   .interactive = F,
+                                                   .title = "Ibovespa - decomposição")
+
+
+```
+
+
+
+
+Os gráficos da @fig-monthly_anomalize_plot-1 e @fig-monthly_anomalize_plot-2 permitem identicar as anomalias das séries. Enquanto na série de valors total foram identificadas 8 anomalias. Já na série de volume total from identificadas 25. Coincidem entre as séries as anomalias identificadas em dois meses de 2009, um em 2012 e três em 2013 (@tbl-monthly_anomalize_summary). 
+
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-anomalize_plot
+#| fig-cap: 'Detecção de anomalias - Ibovespa'
+
+
+anomalize_close_reg |> timetk::plot_anomalies(.date_var = date, 
+                                            .interactive = TRUE, 
+                                            .title = "Ibovespa - anomalias detectadas")
+```
+
+
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: tbl-monthly_anomalize_summary
+#| tbl-cap: "Datas em que foram identificadas as anomalias." 
+
+dt_anom <- anomalize_close_reg |> filter(anomaly == "Yes") |> select(date) 
+
+knitr::kable(dt_anom, col.names = c("Data")) |> 
+  kable_styling(full_width = FALSE, position = "center") |> 
+  column_spec(1, bold = TRUE) |> 
+  kableExtra::add_header_above("Datas em que foram identificadas as anomalias")
+    
+```
+
+Podemos também comparar as datas identificadas em que foram identificadas as anomalias pelo algoritmo anterior, com os "pontos de quebra" (ou de mudança) identificados pelo modelo *Prophet*.
+
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-changepoints_plot
+#| fig-cap: 'Changepoints (pontos de quebra) identificados via Prophet'
+
+close_prophet <- close_reg |> mutate(ds = date, y = close) |> select(c(ds,y))
+
+m <- prophet::prophet(close_prophet,
+                      changepoint.prior.scale = 0.2,
+                      seasonality.prior.scale = 0.8,
+                      changepoint.range = 0.95)
+future <- prophet::make_future_dataframe(m, 15)
+forecast <- predict(m,future )
+
+plot(m, forecast) + prophet::add_changepoints_to_plot(m)
+
+```
+
+```{r}
+
+knitr::kable(m$changepoints, col.names = c("Data")) |> 
+  kable_styling(full_width = FALSE, position = "center") |> 
+  column_spec(1, bold = TRUE) |> 
+  kableExtra::add_header_above("Datas em que foram identificados os `changepoints`")
+
+```
+
+
+```{r}
+dt1 <- format(dt_anom$date,"%Y")
+dt1 <- as.numeric(dt1)
+dt2 <- format(as_tibble(m$changepoints)$value,"%Y")
+dt2 <- as.numeric(dt2)
+
+plotly::plot_ly(x = ~c(dt1,dt2), type = "histogram" ) |> plotly::layout(title = "Distribuição de `changepoints` e `anomalias`",
+                                                                xaxis = list(title = "Ano"),
+                                                                yaxis = list(title = "Frequência"))
+```
+
+Conforme esperado, as anomalias/changepoints estão relacionados essencialmente com o período da pandemia.
+
+
+```{r}
+# dataframe sem anomalias
+# 
+
+close_clean <- anomalize_close_reg |>  select(c(date, observed_clean)) |> 
+  mutate(close = observed_clean) |> 
+  select(c(date, close))
+
+close_clean |> timetk::plot_time_series(.date_var = date, 
+                                                .value = close, 
+                                                .interactive = T,
+                                                .title = 'Série temporal após eliminação de anomalias')
+
+
+
+```
+
+
+:::
+
+### Decomposição e testes de estacionariedade
+
+::: {style="text-align: justify"}
+
+```{r}
+
+close_ts <- ts(close_clean$close, start = c(2010,01,04), end = c(2024,02,23), frequency = 365)
+
+ts_cor(close_ts, seasonal = T, lag.max = 30, seasonal_lags = 7)
+
+```
+
+
+```{r}
+# relacionamento linear entre os lags 7, 30, 60 e 90 dias
+ts_lags(close_ts, lags = c(7, 30, 60, 90))
+
+```
+
+
+
+
+
+
+```{r}
+close_reg |> plot_stl_diagnostics(date, close, .interactive = T)
+```
+
+
+```{r}
+close_clean |> plot_seasonal_diagnostics(date, close, .interactive = T)
+```
+
+:::
+
+

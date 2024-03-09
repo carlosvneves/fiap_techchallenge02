@@ -1,0 +1,38 @@
+project:
+  type: website
+  output-dir: docs
+prefer-html: true
+
+toc: true
+number-sections: true
+
+website:
+  title: "Modelo preditivo para o IBOVESPA - 3DTAT - FIAP"
+  navbar:
+    search: true
+    background: primary
+    tools:
+    - icon: github
+      menu: 
+        - text: Source Code
+          url: https://github.com/carlosvneves/fiap_techchallenge02
+    left:
+      - href: index.qmd
+        text: Home
+      - href: eda.qmd
+        text: Análise Exploratória
+      - href: models.qmd
+        text: Modelos e previsão
+      - href: about.qmd
+        text: Sobre
+format:
+  html:
+    theme: 
+     light: 
+       - lux 
+     dark: darkly
+    css: styles.css
+    toc: true
+
+
+
