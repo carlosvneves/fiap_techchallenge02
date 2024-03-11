@@ -184,6 +184,7 @@ A função _arima_reg()_ é uma maneira de gerar uma especificação de um model
 ```{r}
 #|echo: True
 #|warning: False
+#| cache: true
 
 model_fit_arima_no_boost <- arima_reg(
         # ARIMA args
@@ -213,6 +214,7 @@ Iremos usar o _auto_arima_xgboost_ para que o algoritmo escolha automaticamente 
 ```{r}
 #|echo: True
 #|warning: False
+#| cache: true
 
 model_fit_arima_boost <- arima_boost(
     # ARIMA args
@@ -246,6 +248,7 @@ model_fit_arima_boost
 ```{r}
 #| echo: false
 #| warning: false
+#| cache: true
 
 model_fit_ets <- exp_smoothing(trend = "additive", 
                                season = "auto", 
@@ -261,6 +264,7 @@ model_fit_ets <- exp_smoothing(trend = "additive",
 ```{r}
 #| echo: false
 #| warning: false
+#| cache: true
 
 
 lockdown1 <- tibble(holiday = 'lockdown',  
@@ -295,6 +299,7 @@ model_fit_prophet <- prophet_reg(seasonality_weekly = T,
 ```{r}
 #| echo: false
 #| warning: false
+#| cache: true
 
 
 model_fit_prophet_boost <- prophet_boost(mode="regression",
@@ -328,6 +333,7 @@ model_fit_prophet_boost <- prophet_boost(mode="regression",
 ```{r}
 #| echo: false
 #| warning: false
+#| cache: true
 
 model_fit_lm <- linear_reg() |> 
     set_engine("lm") |> 
@@ -339,41 +345,11 @@ model_fit_lm <- linear_reg() |>
 
 ```
 
-### Multivariate Adaptative Regression Splines
-```{r}
-#| echo: false
-#| warning: false
-
-model_spec_mars <- mars(mode = "regression",  
-                        num_terms = 5, 
-                        prod_degree = 1) |> 
-    set_engine("earth", ) 
-
-recipe_spec <- recipe(close ~ ., data = training(splits)) |> 
-    step_timeseries_signature(date) |> 
-    step_date(date, features = c("doy","dow"), ordinal = FALSE) |> 
-    step_mutate(date_num = as.numeric(date)) |>
-    step_rm(contains("iso"), contains("minute"), contains("hour"),
-            contains("am.pm"), contains("xts")) |> 
-    step_normalize(contains("index.num"),date_wday, date_day, date_qday) |> 
-    step_fourier(date, period = c(253/4, 253), K = 7) |> 
-    step_dummy(contains("lbl"), one_hot = TRUE) 
-
-bake(prep(recipe_spec), new_data = training(splits))
-
-juice(prep(recipe_spec))
-
-wflw_fit_mars <- workflow() |> 
-    add_recipe(recipe_spec) |> 
-    add_model(model_spec_mars) |> 
-    fit(training(splits))
-```
-
-
 ###  GLMNET
 ```{r}
 #| echo: false
 #| warning: false
+#| cache: true
 
 model_spec_glmnet <- linear_reg(
     mode = "regression", 
@@ -402,7 +378,6 @@ wflw_fit_glmnet <- workflow() |>
     fit(training(splits))
 ```
 
-
 ## Sumário dos modelos
 ```{r}
 #| echo: true
@@ -417,7 +392,6 @@ models_tbl <- modeltime_table(
     model_fit_prophet,
     model_fit_prophet_boost,
     model_fit_lm,
-   # wflw_fit_mars,
     wflw_fit_glmnet
 
 )
@@ -432,7 +406,8 @@ models_tbl
 #| warning: false
 #| label: tbl-accuracy_test
 #| tbl-cap: 'Tabela de modelos e ajuste aos dados de teste'
-
+#| cache: true
+#| 
 calibration_tbl <- models_tbl %>%
     modeltime_calibrate(new_data = testing(splits))
 
@@ -450,7 +425,8 @@ calibration_tbl
 #| warning: false
 #| label: fig-train_test_sets
 #| fig-cap: "Previsões em relação aos dados de teste"
-#| 
+#| cache: true
+
 calibration_tbl |> 
     modeltime_forecast(new_data = testing(splits), actual_data = close_clean |> filter(date > '2019-12-31')) |> 
     plot_modeltime_forecast(
@@ -465,7 +441,8 @@ calibration_tbl |>
 #| warning: false
 #| label: tbl-accuracy_test
 #| tbl-cap: 'Métricas de acurácia - previsão x dados de teste'
-#| 
+#| cache: true
+
 calibration_tbl %>%
     modeltime_accuracy() %>%
     table_modeltime_accuracy(
@@ -481,12 +458,13 @@ calibration_tbl %>%
 #| warning: false
 #| fig-cap: 'Previsões para 20 dias fora da amostra'
 #| label: fig-fct_out_of_sample
+#| cache: true
   
 refit_tbl <- calibration_tbl |> 
     modeltime_refit(data = close_clean)
 
 fct_refit <- refit_tbl |> 
-    modeltime_forecast(h = "20 days", actual_data = close_clean |> filter(date > '2024-01-01'))
+    modeltime_forecast(h = "20 days", actual_data = close_clean |> filter(date > '2023-11-01'))
 
 fct_refit |> plot_modeltime_forecast(.interactive = T) |> layout(title = 'Previsões para 20 dias fora da amostra')
 ```
@@ -517,16 +495,18 @@ for (m in models_list){
   mae <- c(Metrics::mae(actual_fct$close.x, actual_fct$close.y))
   mape <- c(Metrics::mape(actual_fct$close.x, actual_fct$close.y)) * 100
   mase <- c(Metrics::mase(actual_fct$close.x, actual_fct$close.y))
+  smape <- c(Metrics::smape(actual_fct$close.x, actual_fct$close.y)) * 100
   rmse <- c(Metrics::rmse(actual_fct$close.x, actual_fct$close.y))
   
   accuracy_tbl <- bind_rows(accuracy_tbl,
                             tibble(MAE = mae, 
                                    MAPE = mape, 
-                                   MASE = mase, 
+                                   MASE = mase,
+                                   SMAPE = smape,
                                    RMSE = rmse))
 }
 
-accuracy_tbl <- bind_cols(model = models_list, accuracy_tbl)  
+accuracy_tbl <- bind_cols(Modelo = models_list, accuracy_tbl)  
 
 kable(accuracy_tbl, 
       caption = "Métricas de acurácia - previsão (fora da amostra) x valores reais",
