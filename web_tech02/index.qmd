@@ -6,6 +6,9 @@ title: "web_tech02"
 #| message: false
 #| warning: false
 
+# limpa os objetos não utilizados
+rm(list = ls())
+# carrega as bibliotecas necessárias
 source('utils.R')
 ```
 
@@ -35,13 +38,16 @@ de janeiro de 2010 a fevereiro de 2023.
 - Justificar a(s) técnica(s) utilizada(s);
 - Atingir um nível de acurácia acima de 70%.
 
-:::
 
+Na tabela @tbl-dados_completos é possível visualizar os dados extraídos do site da [investing](https://br.investing.com/indices/bovespa-historical-data), de janeiro de 2010 a fevereiro de 2023. 
 
 ```{r}
 #|echo: false
 #|message: false
 #|warning: false
+#|label: tbl-dados_completos
+#|tbl-cap: ""
+
 
 # leitura do arquivo de dados  
 ibovespa <- read_csv("C:/projects/alura_postech/fiap_techchallenge02/data/Ibovespa_20100101-20240224.csv") |> 
@@ -51,8 +57,9 @@ colnames(ibovespa) <- c('date', 'close', 'open', 'max', 'min','vol', 'var')
 
 # imprime a tabela de dados
 DT::datatable(ibovespa, filter = "bottom", 
-                          colnames = colnames(ibovespa),
-                          # caption = header, 
+                          colnames = c('Data', 'Fechamento', 'Abertura', 
+                                                'Máx.', 'Min.', 'Vol.', 'Var.(%)'),
+                          caption = "Ibovespa - jan/2010 a fev/2024", 
                           extensions = 'Buttons', 
                           options = list(
                               dom = 'Bfrtip',
@@ -62,6 +69,48 @@ DT::datatable(ibovespa, filter = "bottom",
                 DT::formatRound(columns = c('close', 'open', 'max', 'min'),
                                 mark = ".",
                                 dec.mark = ",") 
+                
 ```
 
 
+Conforme estabelecido nos requisitos, o objetivo é desenvolver um modelo preditivo para prever diariamente índice de fechamento da base. Desta forma, estamos interessados somente na coluna relativa ao índice de fechamento, cujos dados podem ser visualizados no gráfico da @fig-dados_completos.
+
+```{r}
+#|echo: false
+#|message: false
+#|warning: false
+#|label: fig-dados_completos
+#|fig-cap: 'Ibovespa - jan/2010 a fev/2024'
+# série temporal completa
+ibovespa |> plot_time_series(date, close,
+                             .interactive = T, 
+                             .plotly_slider = T, 
+                             .title = "Ibovespa - Fechamento",
+                             .smooth = 0.05)
+
+save(list=c('ibovespa'), file='index.out.RData')
+```
+
+A série temporal em questão possui 3503 linhas. No início do período analisado o índice era da ordem de 70 pontos, e o último dado, de 23/02/2024, é de 129 pontos. Ou seja, o índice cresceu 84% em um período de 5163 dias (pouco mais de 14 anos).
+
+Vários são os fatores que influenciam o comportamento do mercado, como:
+- Desempenho das empresas: O lucro, a receita e o crescimento das empresas são fatores importantes que influenciam o preço de suas ações.
+- Condições econômicas: O crescimento do PIB, a taxa de inflação e a taxa de juros são alguns indicadores que afetam o mercado de ações.
+- Sentimento do mercado: A confiança dos investidores e a percepção do risco também influenciam o mercado.
+- Choques externos: Guerras, epidemias e pandemias.
+
+Por meio de inspeção visual é possível notar que a série possui uma tendência de alta a partir de 2016, refletindo um certo otimismo à época, pois o Brasil estava saindo da crise econômica na qual estava imerso desde 2012. Entre 2020 e 2021 a Pandemia de Covid-19, com seus _lockdowns_ e outras medidas adotadas para mitigar a contaminação, naturalmente causou um impacto considerável, evidenciado pela queda ocorrida entre 23/01/2020 e 23/02/2020, da ordem de 50%.
+
+Para além dos choques exógenos, séries financeiras são bastante desafiadoras para aqueles que pretendem construir modelos preditivos. Especialmente em séries diárias e de grande volatilidade, existe bastante ruído e efeitos sazonais, os quais impactam substancialmente a capacidade preditiva da grande maioria dos modelos. 
+
+A não linearidade também é uma característica da série temporal em questão, onde a resposta do mercado a diferentes tipos de choques (grandes ou pequenos, positivos ou negativos) pode variar, contribuindo para a aparência de um passeio aleatório, ou seja, completamente imprevisível.
+
+Além disso, séries temporais desse tipo também podem ser compreendidas como um [passeio aleatório](https://www.investopedia.com/terms/r/randomwalktheory.asp) devido à hipótese do mercado eficiente. Essa hipótese sugere que os preços dos ativos financeiros refletem todas as informações disponíveis e, portanto, qualquer mudança nos preços é resultado de novas informações que são imprevisíveis.
+
+Outrossim, como já apontado anteriormente, séries temporais como o Ibovespa são influenciadas por uma infinidade de fatores, como decisões econômicas, políticas, eventos globais e até mesmo o comportamento humano, que são complexos e muitas vezes aleatórios. Isso faz com que a sua trajetória seja imprevisível e possa parecer um passeio aleatório, onde os movimentos futuros não podem ser previstos com base nos movimentos passados.
+
+Embora o mercado de ações possa se assemelhar a um passeio aleatório no curto prazo, existem tendências e fatores que podem ser analisados para fazer previsões mais precisas no longo prazo. A dificuldade de prever o mercado se dá pela complexa interação de diversos fatores, tanto previsíveis quanto imprevisíveis.
+
+Por isso que o trabalho de modelar uma série como a do índice Ibovespa deve ser precedido de uma [análise exploratória](eda.html) que permita compreender melhor a série e seus principais componentes com o objetivo de escolher o modelo e os parâmetros mais adequados para o melhor ajuste da série.
+
+:::

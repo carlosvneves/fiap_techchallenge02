@@ -17,47 +17,61 @@ prefer-html: true
 #| echo: false
 #| message: false
 #| warning: false
-
+# limpa o ambiente
+rm(list = ls())
+# carrega os objetos produzidos na etapa anterior
+load('index.out.RData')
+# carrega bibliotecas
 source('utils.R')
 
 ```
 
 # Análise exploratória e visualização
 
-## Visualização da série original e regularização
+## Visualização e regularização
 
 ::: {style="text-align: justify"}
 
-Análise dos dados somente de fechamento do Ibovespa.
+Para realizar a modelagem da série temporal do Ibovespa, será necessário realizar algumas análises anteriores, incluindo certos ajustes e eliminação de ruídos que permitam, ao mesmo tempo, um ajuste mais fácil e a manutenção das principais características da série para se ter uma predição mais acurada.
+
+A visualização da @fig-dados_regularizados é da série de fechamento com dados até 01/02/2024. Este pequeno corte da série tem por objetivo, ao final do processo de modelagem, avaliar a capacidade preditiva do modelo "fora-da-amostra", mas com a vantagem de se poder comparar as previsões com dados reais.
+
+A série temporal também foi regularizada, uma vez que esta possui dados somente para os dias em que o pregão ocorreu (dias úteis). 
+Como os modelos de séries temporais lidam melhor com dados regulares, foi aplicado um algoritmo de regularização para preencher as lacunas existentes. 
 
 
 ```{r}
+#|echo: false
+#|message: false
+#|warning: false
+#|label: fig-dados_regularizados
+#|fig-cap: 'Ibovespa - jan/2010 a fev/2024'
+
 close_df <- ibovespa |> select(c(date, close)) |> filter(date < '2024-02-01')
 
-# série temporal completa
-close_df |> plot_time_series(date, close, 
-                             .interactive = T, 
-                             .plotly_slider = T, 
-                             .title = "Ibovespa - fechamento")
-```
-
-A série temporal precisa ser regularizada, uma vez que esta possui dados somente para os dias em que o pregão ocorreu. 
-Como os modelos de séries temporais lidam melhor com dados regulares, será empregado um algoritmo de regualazição (qual e o que ele faz?) para preencher tais lacunas. 
-
-O resultado está na tabela a seguir.
- 
-```{r}
-
-# regularização para evitar descontinuidades por dias sem pregão
 close_reg <- close_df |> 
     pad_by_time(date, .by = "auto") |> 
     mutate_at(vars(close), .funs = ts_impute_vec, period = 1)
 
 close_reg |> plot_time_series(date, close, .interactive = T, .plotly_slider = T, .title = 'Ibovespa regularizado')
 
+```
+
+O resultado também está na tabela @tbl-dados_regularizados.
+
+```{r}
+#|echo: false
+#|message: false
+#|warning: false
+#|label: tbl-dados_regularizados
+#|tbl-cap: ""
+#|
+# regularização para evitar descontinuidades por dias sem pregão
+
+
 # imprime a tabela de dados
 DT::datatable(close_reg, filter = "bottom", 
-                          colnames = colnames(close_df),
+                          colnames = c("Data","Fechamento"),
                           # caption = header, 
                           extensions = 'Buttons', 
                           options = list(
@@ -74,72 +88,125 @@ DT::datatable(close_reg, filter = "bottom",
 
 :::
 
+## Caracterização do processo gerador de dados da série-temporal
 
-## Mediana para 7 dias e Médias-móveis do Ibovespa para 15 e 30 dias
+### Estacionariedade e decomposição
 
 ::: {style="text-align: justify"}
 
-Mediana para 7 dias.
+Um premissa fundamental da nossa modelagem é que a série será tratada como um **processo univariado**, ou seja, as suas características de interesse serão explicadas somente por ela mesma. 
+
+Neste sentido um bom primeiro passo para identificar quais seriam os modelos mais adequados, é determinar se a série é ou não estacionária. 
+
+#### Testes de raiz unitária
+    
+::: {style="text-align: justify"}
+
+A estacionariedade é uma propriedade importante na análise de séries temporais. Um grande número de modelos assumem a estacionariedade do processo (como os modelos ARMA e ARIMA) e, além disso,um modelo de série temporal que não é estacionário irá variar a sua acurácia à medida que as métricas da série de tempo variarem[^exploratory_yearly-9].
+
+Assim, na análise de séries temporais é possível se utilizar de estratégias como a transformação logarítimica, a transformação quadrática ou ainda a diferenciação. Vale dizer que as duas primeiras buscam atacar a alteração da variância no tempo, enquanto que a última foca na remoção da tendência.
+
+[^exploratory_yearly-9]: Nielsen, Aileen.Practical Time Series Analysis: Prediction with Statistics and Machine Learning.O'Reilly Media; 1ª edição (19 novembro 2019).pp.85
+
+[^exploratory_yearly-10]: Nielsen, Aileen.Practical Time Series Analysis: Prediction with Statistics and Machine Learning.O'Reilly Media; 1ª edição (19 novembro 2019).pp.85
+
+
+
+Para identificar a existência de raiz unitária, isto é, não estacionariedade, os testes que utilizaremos são: - Augmented Dickey-Fuller (ADF) - Hipótese nula ($H_0$): a série **possui** uma raiz unitária, logo não é estacionária[^exploratory_yearly-11]; - Kwiatkowski–Phillips–Schmidt–Shin (KPSS) - Hipótese nula ($H_0$): a série **não possui** uma raiz unitária, logo é estacionária[^exploratory_yearly-12].
+
+O resultado a seguir se referece à aplicação dos testes ADF e KPSS à série.
 
 ```{r}
-# índice mediano por semana
-close_7d <- close_reg |> 
-    summarise_by_time(date, .by = "week", median_7d = mean(close)) 
+#|echo: false
+#|message: false
+#|warning: false
 
-close_7d |> 
-    plot_time_series(date, median_7d,.interactive=T, .title = 'Ibovespa fechamento - mediana semanal')
+close_ts <- ts(close_reg$close, start = c(2010,01,04), end = c(2024,02,01), frequency = 365)
 
 ```
+:::
+
+::: {.callout-note appearance="simple"}
+
+#### Resultado do teste:
 
 ```{r}
-
-kable(summary(close_7d)) |> 
-  kable_styling(full_width = FALSE, position = "center") %>%
-  column_spec(1, bold = TRUE) 
-
-```
-
-Média-Móvel para 15 e 30 dias.
-
-```{r}
-# média móvel de 15 dias
-roll_avg_15d <- slidify(.f =  mean, .period = 15, .align = "center", .partial = T)
-
-# média móvel de 30 dias
-roll_avg_30d <- slidify(.f =  mean, .period = 30, .align = "center", .partial = T)
-
-close_reg |> mutate(rolling_avg_15d = roll_avg_15d(close), rolling_avg_30d = roll_avg_30d(close)) |> 
-     tidyr::pivot_longer(cols = c(close, rolling_avg_15d, rolling_avg_30d)) |> 
-     plot_time_series(date, value, .color_var = name,
-                     .interactive = T, 
-                     .smooth = F,
-                     .title = 'Ibovespa - índice diário, média-móvel de 15 dias, média-móvel de 30 dias')
-
-```
-
-```{r}
-#| echo: false
+#| echo: true
 #| message: false
 #| warning: false
-#| label: tbl-roll_avg
-#| tbl-cap: "Datas coincidentes no processo de identificação de anomalias." 
-#| 
-roll_avg <- close_reg |> mutate(rolling_avg_15d = roll_avg_15d(close), rolling_avg_30d = roll_avg_30d(close)) 
+#| label: unit_root_val
 
-
-kable(cbind( summary(roll_avg),summary(close_7d))) |> 
-  kable_styling(full_width = FALSE, position = "center") %>%
-  column_spec(1, bold = TRUE) 
+ur_test(close_ts, type_adf = "trend", type_kpss = "tau")
 ```
 
 :::
 
-## Caracterização do processo gerador de dados da série-temporal
+No teste ADF o p-valor mostra que a hipótese $H_0$ **não pode ser rejeitada** considerando 5% de nível de significância - 0,878 \> 0,05 e o módulo das estatísticas $\tau_3$, $\phi_2$ e $\phi_3$ é menor que o módulo dos valores críticos. No teste KPSS o resultado indica que a hipótese $H_0$ **pode ser rejeitada** a 5% de significância, visto que 7,582 \> 0,146.
 
-### Detecção de anomalias e _changepoints_
+Os testes indicam, portanto, que a série não é estacionária.
+
+:::
+
+[^exploratory_yearly-11]: https://en.wikipedia.org/wiki/Augmented_Dickey%E2%80%93Fuller_test
+
+[^exploratory_yearly-12]: https://en.wikipedia.org/wiki/KPSS_test
+
+### Decomposição e testes de estacionariedade
+
+### Funções de autocorrelação (ACF) e autorrelação parcial (PACF)
 
 ::: {style="text-align: justify"}
 
+A função de autocorrelação (ACF) e a função de autocorrelação parcial (PACF) são medidas de associação entre valores autais e valores pregressos em séries temporais[^exploratory_yearly-1]. Portanto, indicam em que medida um valor $x_t$ é dependente do valor $x_{t-1}$ e, consequentemente, o passado é últil para prever o futuro.
+
+A autocorrelação parcial é mais útil durante o processo de especificação de um modelo autoregressivo. Ela ajuda a avaliar as propriedades de uma série temporal.
+
+As funções de autocorrelação e autocorrelação parcial também servem para estudar a estacionariedade de uma série temporal[^exploratory_yearly-2].Uma série temporal estacionária tem funções de média, variância e autocorrelação que são essencialmente constantes ao longo do tempo[^exploratory_yearly-3]. A função de autocorrelação diminui para quase zero rapidamente para uma série temporal estacionária (decaimento exponencial).
+
+Os modelos matemáticos mais comuns e que têm como premissa apresentar a estacionariedade são modelos auto-regressivos - AR (p), auto-regressivo e de média móvel - ARMA (p,q) - e modelo auto—regressivo integrado e de média móvel - ARIMA(p,d,q)[^exploratory_yearly-4].
+
+Para uma série temporal estacionária, um modelo de média móvel vê o valor de uma variável no tempo $t$ como uma função linear de erros residuais de $q$ defasagens. Já um processo auto-regressivo de ordem $p$ é um modelo que utiliza os próprios valores passados como preditores[^exploratory_yearly-5]. O termo $d$ especifica a ordem de integração da série (ou seja, quantas vezes a série deve ser diferenciada para se tornar estacionária).
+
+As ordens dos processos em termos de $p$ e $q$ são definidas com base na análise das funções de autocorrelação e autocorrelação parcial. A ordem $p$ do processo auto-regressivo é determinada pela função de autocorrelação parcial, enquanto a ordem $q$ do processo de média móvel é indicada pelo número de correlações estatisticamente significativas na função de autocorrelação[^exploratory_yearly-6].
+
+Estabelecidos os conceitos e aplicações da ACF e da PACF, passemos à análise das séries de interesse.
+
+```{r}
+#|echo: false
+#|message: false
+#|warning: false
+#|label: fig-acf_pacf
+#|fig-cap: 'ACF e PACF'
+
+
+ts_cor(close_ts, seasonal = T, lag.max = 30, seasonal_lags = 15)
+
+```
+
+
+A ACF mostra que existe uma autocorrelação persistente entre as defasagens da série temporal, a qual pode ser melhor visualizada no gráfico da @fig-acf para 7, 30, 60 e 90 defasagens.Com 60 defasagens a correlação já é menos forte. Também há a autocorrelação sazonal para 15 lags, a qual acompanha o comportamento da ACF. A PACF, por seu turno, indica que existe um processo do tipo AR(1), pois há um pico no primeiro lag.
+
+```{r}
+#|echo: false
+#|message: false
+#|warning: false
+#|label: fig-acf
+#|fig-cap: 'Relacionamento linear entre os lags 7, 30, 60 e 90'
+
+# relacionamento linear entre os lags 7, 30, 60 e 90 dias
+ts_lags(close_ts, lags = c(7, 30, 60, 90))
+
+```
+
+
+:::
+
+### Decomposição da série, detecção de anomalias e _changepoints_
+
+::: {style="text-align: justify"}
+
+A existência de quebras estruturais^[https://en.wikipedia.org/wiki/Structural_break#:~:text=Structural%20break%20tests,-A%20single%20break&text=For%20linear%20regression%20models%2C%20the,...%2CT%5D.] nas séries temporais além de serem eventual causa de existência de raiz unitária (não estacionariedade), também podem auxiliar a compreensão do fenômeno analisado, vez que indicam a existência, por exemplo, de alterações na tendência da série e, deste modo, podem ajudar a corroborar hipóteses levantadas por quem está realizando a análise.
+                                     
 O primeiro passo para a detecção de anomalias é a decomposição da série em suas componentes de tendência e sazonalidade, além de podermos também verificar os resíduos das séries. 
 
 Os gráficos da @fig-decomp mostra que existe um forte componente sazonal atuando e a tendência é crescente.
@@ -155,23 +222,23 @@ anomalize_close_reg <-  close_reg |>
                                           timetk::anomalize(
                                               .date_var      = date, 
                                               .value         = close,
-                                              .iqr_alpha     = 0.05,
-                                              .max_anomalies = 0.20,
+                                              .iqr_alpha     = 0.09,
+                                              .clean_alpha   = 0.5,
+                                              .max_anomalies = 0.40,
                                               .message       = FALSE
                                           )
         
 anomalize_close_reg |> timetk::plot_anomalies_decomp(.date_var = date,
-                                                   .interactive = F,
-                                                   .title = "Ibovespa - decomposição")
+                                                   .interactive = T,
+                                                   .title = "Ibovespa - decomposição"
+                                                   )
 
 
 ```
 
+Os gráficos da @fig-decomp permitem identicar a existência de um componente sazonal importante na série, bem como resíduos relevantes por volta de 2020, mostra a magnitude do choque causado pela pandemia de Covid-19. 
 
-
-
-Os gráficos da @fig-monthly_anomalize_plot-1 e @fig-monthly_anomalize_plot-2 permitem identicar as anomalias das séries. Enquanto na série de valors total foram identificadas 8 anomalias. Já na série de volume total from identificadas 25. Coincidem entre as séries as anomalias identificadas em dois meses de 2009, um em 2012 e três em 2013 (@tbl-monthly_anomalize_summary). 
-
+A @fig-anomalize_plot mostra também mostra uma grande quantidade de anomalias identificadas no primeiro semestre de 2020, novamente um observação justificada pela pandemia, mais especificamente pelos _lockdowns_.
 
 ```{r}
 #| echo: false
@@ -186,13 +253,13 @@ anomalize_close_reg |> timetk::plot_anomalies(.date_var = date,
                                             .title = "Ibovespa - anomalias detectadas")
 ```
 
-
+Os dias em que foram identificadas as anomalidas estão na tabela @tbl-datas_anomalias.
 
 ```{r}
 #| echo: false
 #| message: false
 #| warning: false
-#| label: tbl-monthly_anomalize_summary
+#| label: tbl-datas_anomalias
 #| tbl-cap: "Datas em que foram identificadas as anomalias." 
 
 dt_anom <- anomalize_close_reg |> filter(anomaly == "Yes") |> select(date) 
@@ -204,7 +271,7 @@ knitr::kable(dt_anom, col.names = c("Data")) |>
     
 ```
 
-Podemos também comparar as datas identificadas em que foram identificadas as anomalias pelo algoritmo anterior, com os "pontos de quebra" (ou de mudança) identificados pelo modelo *Prophet*.
+Podemos também comparar as datas em que foram identificadas as anomalias pelo algoritmo anterior, com os "pontos de quebra" (ou de mudança) identificados pelo modelo *Prophet*.
 
 
 ```{r}
@@ -226,8 +293,14 @@ forecast <- predict(m,future )
 plot(m, forecast) + prophet::add_changepoints_to_plot(m)
 
 ```
+Os dias em que foram identificados _changepoints_ estão na tabela @tbl-datas_changepoints.
 
 ```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: tbl-datas_changepoints
+#| tbl-cap: "Datas em que foram identificados os changepoints." 
 
 knitr::kable(m$changepoints, col.names = c("Data")) |> 
   kable_styling(full_width = FALSE, position = "center") |> 
@@ -237,73 +310,49 @@ knitr::kable(m$changepoints, col.names = c("Data")) |>
 ```
 
 
+Uma forma de melhor visualizar o período mais crítico para a modelagem, ou seja, o período em que existe maior concentração de  volatilidade e mudanças de tendência, é por meio do histograma a seguir.
+ 
 ```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-hist_changepoints
+#| fig-cap: 'Histograma de changepoints e anomalias.'
+
 dt1 <- format(dt_anom$date,"%Y")
 dt1 <- as.numeric(dt1)
 dt2 <- format(as_tibble(m$changepoints)$value,"%Y")
 dt2 <- as.numeric(dt2)
 
-plotly::plot_ly(x = ~c(dt1,dt2), type = "histogram" ) |> plotly::layout(title = "Distribuição de `changepoints` e `anomalias`",
+plotly::plot_ly(x = ~c(dt1,dt2), type = "histogram" ) |> 
+  plotly::layout(title = "Distribuição de `changepoints` e `anomalias`",
                                                                 xaxis = list(title = "Ano"),
                                                                 yaxis = list(title = "Frequência"))
 ```
 
-Conforme esperado, as anomalias/changepoints estão relacionados essencialmente com o período da pandemia.
-
+As anomalias/changepoints estão relacionados essencialmente concentrados 2020 e 2022. Em 2020 tivemos a pandemia de Covid-19, enquanto que em 2022 tivemos eleições gerais, inclusive para Presidente da República. Tais eventos podem ajudar a explicar a grande quantidade de dados considerados anômalos.
 
 ```{r}
-# dataframe sem anomalias
-# 
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-plot_anom_clean
+#| fig-cap: 'Série temporal  com dados observados e após eliminação de anomalias'
 
+
+# dataframe sem anomalias
 close_clean <- anomalize_close_reg |>  select(c(date, observed_clean)) |> 
   mutate(close = observed_clean) |> 
   select(c(date, close))
 
-close_clean |> timetk::plot_time_series(.date_var = date, 
-                                                .value = close, 
+anomalize_close_reg |> timetk::plot_anomalies_cleaned(.date_var = date, 
                                                 .interactive = T,
-                                                .title = 'Série temporal após eliminação de anomalias')
+                                                .title = 'Série temporal  com dados observados e após eliminação de anomalias')
 
-
-
+# salva os objetos importantes para as próximas etapas da análise
+save(list=c('anomalize_close_reg','close_clean','close_ts', 'ibovespa'), file='explore.out.RData')
 ```
 
+Tendo em vista que a série "limpa" possui menor quantidade de valores extremos, esta será, portanto, aquela que tomaremos como base para realizar a nossa modelagem e previsão.
 
 :::
-
-### Decomposição e testes de estacionariedade
-
-::: {style="text-align: justify"}
-
-```{r}
-
-close_ts <- ts(close_clean$close, start = c(2010,01,04), end = c(2024,02,23), frequency = 365)
-
-ts_cor(close_ts, seasonal = T, lag.max = 30, seasonal_lags = 7)
-
-```
-
-
-```{r}
-# relacionamento linear entre os lags 7, 30, 60 e 90 dias
-ts_lags(close_ts, lags = c(7, 30, 60, 90))
-
-```
-
-
-
-
-
-
-```{r}
-close_reg |> plot_stl_diagnostics(date, close, .interactive = T)
-```
-
-
-```{r}
-close_clean |> plot_seasonal_diagnostics(date, close, .interactive = T)
-```
-
-:::
-
-

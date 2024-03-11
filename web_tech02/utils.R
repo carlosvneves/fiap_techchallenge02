@@ -18,6 +18,8 @@ library(modeltime)
 library(lubridate)
 library(tidymodels)
 library(modeltime.gluonts)
+library(modeltime.h2o)
+library(Metrics)
 
 # output
 library(ggplot2)

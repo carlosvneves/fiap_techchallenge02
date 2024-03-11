@@ -18,6 +18,11 @@ prefer-html: true
 #| message: false
 #| warning: false
 
+# limpa os objetos não utilizados
+rm(list = ls())
+# carrega os objetos produzidos na etapa anterior
+load('explore.out.RData')
+# carrega as bibliotecas necessárias
 source('utils.R')
 
 ```
@@ -25,37 +30,164 @@ source('utils.R')
 
 # Modelagem e previsão
 
-## Modelos
+Para realizar a previsão da série do Ibovespa, começaremos com modelos mais simplificados, de modo que possamos estabelecer uma linha de base e, deste modo, avaliar se os modelos mais sofisticados realmente geram resultados melhores.
+
+## Médias-móveis do Ibovespa para 7, 15 e 30 dias
+
 ::: {style="text-align: justify"}
 
-teste
+Médias-móveis são técnicas de suavização de séries temporais e, no máximo, permitem que seja realizada a previsão para o período imediatamente posterior.
 
-::: 
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-plot_roll_avg
+#| fig-cap: 'Série temporal  com dados observados e após eliminação de anomalias'
 
-## Previsão
-::: {style="text-align: justify"}
-teste
 
-::: 
+# mediana de 7 dias
+roll_avg_7d <- slidify(.f =  mean, .period = 7, .align = "center", .partial = T)
+
+# média móvel de 15 dias
+roll_avg_15d <- slidify(.f =  mean, .period = 15, .align = "center", .partial = T)
+
+# média móvel de 30 dias
+roll_avg_30d <- slidify(.f =  mean, .period = 30, .align = "center", .partial = T)
+
+roll_avg_df <- close_clean |> mutate(rolling_avg_7d = roll_avg_7d(close),
+                      rolling_avg_15d = roll_avg_15d(close), 
+                      rolling_avg_30d = roll_avg_30d(close)
+                      ) 
+roll_avg_df |> 
+     tidyr::pivot_longer(cols = c(close, rolling_avg_7d, rolling_avg_15d, rolling_avg_30d)) |> 
+     filter(date > '2020-01-01') |> 
+     plot_time_series(date, value, .color_var = name,
+                     .interactive = T, 
+                     .smooth = F,
+                     .title = 'Ibovespa - índice diário, média-móvel de 7, 15 dias e 30 dias - a partir de 2020-01-01')
+
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: tbl-roll_avg
+#| tbl-cap: "Estatísticas das médias-móveis e da série original." 
+#| 
+
+kable(cbind( summary(roll_avg_df)), caption =  "Estatísticas das médias-móveis e da série original" ) |> 
+  kable_styling(full_width = FALSE, position = "center") %>%
+  column_spec(1, bold = TRUE) 
+```
+
+Com o aumento da janela temporal, podemos verificar que houve uma redução no valor da mediana, assim como no valor máximo da série.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: tbl-roll_avg_metrics
+#| tbl-cap: "Medidas de acurácia da média-móvel para 7, 15 e 30 dias, previsão para 1 dia e respectivo MAPE"
+#| 
+
+mae <- c(Metrics::mae(roll_avg_df$close, roll_avg_df$rolling_avg_7d),
+         Metrics::mae(roll_avg_df$close, roll_avg_df$rolling_avg_15d),
+         Metrics::mae(roll_avg_df$close, roll_avg_df$rolling_avg_30d))
+
+mape <- c(100*Metrics::mape(roll_avg_df$close, roll_avg_df$rolling_avg_7d),
+         100*Metrics::mape(roll_avg_df$close, roll_avg_df$rolling_avg_15d),
+         100*Metrics::mape(roll_avg_df$close, roll_avg_df$rolling_avg_30d))
+
+mase <- c(Metrics::mase(roll_avg_df$close, roll_avg_df$rolling_avg_7d),
+         Metrics::mase(roll_avg_df$close, roll_avg_df$rolling_avg_15d),
+         Metrics::mase(roll_avg_df$close, roll_avg_df$rolling_avg_30d))
+
+rmse <- c(Metrics::rmse(roll_avg_df$close, roll_avg_df$rolling_avg_7d),
+         Metrics::rmse(roll_avg_df$close, roll_avg_df$rolling_avg_15d),
+         Metrics::rmse(roll_avg_df$close, roll_avg_df$rolling_avg_30d))
+fct <- c(tail(roll_avg_df$rolling_avg_7d ,1),
+         tail(roll_avg_df$rolling_avg_15d ,1),
+         tail(roll_avg_df$rolling_avg_30d ,1))
+
+fct_mape <- c(100*mape(ibovespa |> filter(date == '2024-02-01' ) |> select(close) |> as.numeric(),tail(roll_avg_df$rolling_avg_7d ,1)),
+             100*mape(ibovespa |> filter(date == '2024-02-01' ) |> select(close) |> as.numeric(),tail(roll_avg_df$rolling_avg_15d ,1)),
+             100*mape(ibovespa |> filter(date == '2024-02-01' ) |> select(close) |> as.numeric(),tail(roll_avg_df$rolling_avg_30d ,1)))
+
+
+kable(
+  data.frame(mae, 
+           mape, 
+           mase, 
+           rmse,
+           fct,
+           fct_mape,
+           row.names = c('rolling_avg_7d', 'rolling_avg_15d', 'rolling_avg_30d')), 
+  caption = "Medidas de acurácia da média-móvel para 7, 15 e 30 dias, previsão para 1 dia e respectivo MAPE"
+) |> 
+  kable_styling(full_width = FALSE, 
+                position = "center") |> 
+  column_spec(1, bold = TRUE) 
+
+
+  
+```
+
+Os resultados acima mostram que o modelo pode ser considerado acurado para realizar a previsão para o dia seguinte, pois a sua natureza não é de previsão, mas sim de suavização. Neste caso, o valor de fechamento do dia 01/02/2024 real foi de 128,481, e o MAPE foi calculado em relação a este valor. 
+
+:::
 
 ## Divisão entre teste e treino
+
+O primeiro passo para o treinamento de modelos mais sofisticados é a divisão dos dados entre conjuntos de teste e treinamento. Neste caso, o conjunto de teste corresponderá a 20% do conjunto original.
+
 ```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-train_test_sets
+#| fig-cap: "Ibovespa fechamento - Conjuntos de Teste e Treino"
+
 # divide entre teste e treino
 
-close_data <- close_clean |> mutate(id="close", .before = 'date')
+close_data <- close_clean |> mutate(id = "CLOSE", .before = 'date')
 
-splits <- initial_time_split(close_data, prop = 0.85)
+splits <- initial_time_split(close_data |> select(c(date, close)), prop = 0.85)
 
+splits_id <- initial_time_split(close_data, prop = 0.85)
+
+train_s <- training(splits_id)
+test_s <- testing(splits_id)
+
+train_s$set <- "Treino"
+test_s$set <- "Teste"
+
+combined_data <- rbind(train_s, test_s)
+
+plot_ly(combined_data, x = ~date, y = ~close, type = 'scatter', mode = 'line', color = ~set) %>%
+  layout(title = "Ibovespa fechamento - Conjuntos de Teste e Treino",
+         xaxis = list(title = "Data"),
+         yaxis = list(title = "Fechamento"),
+         showlegend = TRUE)
 ```
 
 ## Criação e ajuste de múltiplos modelos
 
+Os modelos a seguir serão ajustados utilizando a biblioteca [timetk](https://business-science.github.io/timetk/). Esta biblioteca permite o ajuste de diversos modelos de séries temporais dentro de um _framework_ coerente, criando uma camada de abstração em relação a várias outras bibliotecas tradicionais na modelagem de séries temporais, como a biblioteca _forecast_. A biblioteca também permite a integração com fluxos de trabalho de _machine-learning_ como o _H2O AutoML_.
+
+
 ### AUTO-ARIMA 
+
+A função _arima_reg()_ é uma maneira de gerar uma especificação de um modelo ARIMA e retorna o melhor modelo de acordo com os valores AIC, AICc ou BIC. A função realiza uma busca pelos possíveis modelos dentro das restrições de ordem fornecidas.
+
 ```{r}
+#|echo: True
+#|warning: False
+
 model_fit_arima_no_boost <- arima_reg(
         # ARIMA args
-        #seasonal_period = "7 days" ,
-        seasonal_period = "auto" ,
+        seasonal_period = 253, #"auto" ,
         non_seasonal_ar = 5,
         non_seasonal_differences = 1,
         non_seasonal_ma = 1,
@@ -66,79 +198,167 @@ model_fit_arima_no_boost <- arima_reg(
     set_engine(engine = "auto_arima") |> 
     fit(close ~ date, data = training(splits))
 
+model_fit_arima_no_boost
 ```
 
 ### AUTO-ARIMA (Boost) 
+
+A função _arima_boost()_ é uma forma de gerar a especificação de um modelo de séries temporais que utiliza _boosting_ para aprimorar erros de modelagem (resíduos) em regressores exógenos. Ela funciona tanto com ARIMA "automatizado" (auto.arima), quanto com ARIMA padrão (arima). Os principais algoritmos são:
+
+- ARIMA Automatizado + Erros XGBoost (engine = auto_arima_xgboost, padrão)
+- ARIMA + Erros XGBoost (engine = arima_xgboost)
+
+Iremos usar o _auto_arima_xgboost_ para que o algoritmo escolha automaticamente os parâmetros que melhor ajustam o modelo.
+
 ```{r}
+#|echo: True
+#|warning: False
+
 model_fit_arima_boost <- arima_boost(
     # ARIMA args
         mode = "regression",
         seasonal_period = "auto" ,
-        non_seasonal_ar = 5,
-        non_seasonal_differences = 1,
-        non_seasonal_ma = 1,
-        seasonal_ar     = 5,
-        seasonal_differences = 5,
-        seasonal_ma     = 5,
+        non_seasonal_ar = 2,
+        non_seasonal_differences = 2,
+        non_seasonal_ma = 2,
+        seasonal_ar     = 1,
+        seasonal_differences = 1,
+        seasonal_ma     = 1,
         
 
     # XGBoost Args
-    trees = 7,
-    tree_depth = 7, 
-    learn_rate = 0.05) |> 
+    trees = 10,
+    tree_depth = 25, 
+    learn_rate = 0.015,
+    mtry = 1,
+    sample_size = 0.5,
+    stop_iter = 2) |> 
     set_engine(engine = "auto_arima_xgboost") |> 
-    fit(close ~ date + as.numeric(date) + month(date, label=T), 
+    fit(close ~ date + as.numeric(date) 
+        + factor(lubridate::month(date, label=T))
+        + factor(lubridate::week(date)), 
         data = training(splits))
 
+model_fit_arima_boost
 ```
 
 ### Exponential Smoothing
 ```{r}
+#| echo: false
+#| warning: false
+
 model_fit_ets <- exp_smoothing(trend = "additive", 
                                season = "auto", 
                                smooth_level = 0.3, 
                                smooth_trend = 0.15) |> 
     set_engine(engine = "ets")  |> 
     fit(close ~ date, data = training(splits))
+
 ```
 
 ### Prophet
 
 ```{r}
-model_fit_prophet <- prophet_reg(seasonality_weekly = "auto", 
+#| echo: false
+#| warning: false
+
+
+lockdown1 <- tibble(holiday = 'lockdown',  
+                    ds = as.Date(c('2020-02-21')),
+                    lower_window = 0, 
+                    upper_window = '2020-02-27') 
+
+lockdown2 <- tibble(holiday = 'lockdown',  
+                    ds = as.Date(c('2020-03-24')),
+                    lower_window = 0, 
+                    upper_window = '2021-08-16') 
+
+
+lockdowns <- bind_rows(lockdown1, lockdown2)
+
+model_fit_prophet <- prophet_reg(seasonality_weekly = T, 
                                  seasonality_daily = T,
                                  seasonality_yearly = "auto",
-                                 prior_scale_seasonality = 0.075,
-                                 prior_scale_changepoints = 0.5,
-                                 changepoint_range = 0.9
+                                 prior_scale_seasonality = 45,
+                                 prior_scale_changepoints = 0.6,
+                                 changepoint_range = 0.9,
+                                 changepoint_num = 35
                                  # modelar covid19
                                  ) |> 
-    set_engine(engine = "prophet") |> 
+    set_engine(engine = "prophet", holidays = lockdowns) |> 
     fit(close ~ date, data = training(splits))
-```
 
+
+```
+### Prophet (Boost)
+
+```{r}
+#| echo: false
+#| warning: false
+
+
+model_fit_prophet_boost <- prophet_boost(mode="regression",
+                                         seasonality_weekly = T, 
+                                 seasonality_daily = T,
+                                 seasonality_yearly = "auto",
+                                 prior_scale_seasonality = 45,
+                                 prior_scale_changepoints = 0.65,
+                                 changepoint_range = 0.9,
+                                 changepoint_num = 35,
+                                 # XGBoost Args
+                                  trees = 10,
+                                  tree_depth = 30, 
+                                  learn_rate = 0.008,
+                                  mtry = 1,
+                                  sample_size = 0.5,
+                                  stop_iter = 5,
+                                 
+                                   ) |> 
+    set_engine(engine = "prophet_xgboost", counts = F) |> 
+    fit(close ~ date + as.numeric(date) 
+        + factor(lubridate::month(date, label=T))
+        + factor(lubridate::week(date)), 
+        data = training(splits))
+    #fit(close ~ date , data = training(splits))
+
+
+```
 
 ### Linear Regression (Parsip)
 ```{r}
+#| echo: false
+#| warning: false
+
 model_fit_lm <- linear_reg() |> 
     set_engine("lm") |> 
-    fit(close ~ as.numeric(date) + factor(month(date, label = TRUE), ordered = FALSE),
+    fit(close ~ as.numeric(date)   
+        + factor(lubridate::month(date, label=T), ordered = FALSE)
+        + factor(lubridate::week(date)), 
         data = training(splits))
+
+
 ```
 
 ### Multivariate Adaptative Regression Splines
 ```{r}
-model_spec_mars <- mars(mode = "regression",  num_terms = 2, prod_degree = 2) |> 
+#| echo: false
+#| warning: false
+
+model_spec_mars <- mars(mode = "regression",  
+                        num_terms = 5, 
+                        prod_degree = 1) |> 
     set_engine("earth", ) 
 
-recipe_spec <- recipe(close ~ date, data = training(splits)) |> 
+recipe_spec <- recipe(close ~ ., data = training(splits)) |> 
     step_timeseries_signature(date) |> 
-    step_date(date, features = "doy", ordinal = FALSE) |> 
-    step_mutate(date_num = as.numeric(date)) |> 
-    step_normalize(date_num) |> 
-    step_fourier(date, period = c(252/4, 252), K = 5) |> 
-    step_rm(date) #|>  
-    # step_dummy(contains("lbl"), one_hot = TRUE) 
+    step_date(date, features = c("doy","dow"), ordinal = FALSE) |> 
+    step_mutate(date_num = as.numeric(date)) |>
+    step_rm(contains("iso"), contains("minute"), contains("hour"),
+            contains("am.pm"), contains("xts")) |> 
+    step_normalize(contains("index.num"),date_wday, date_day, date_qday) |> 
+    step_fourier(date, period = c(253/4, 253), K = 7) |> 
+    step_dummy(contains("lbl"), one_hot = TRUE) 
+
 bake(prep(recipe_spec), new_data = training(splits))
 
 juice(prep(recipe_spec))
@@ -150,23 +370,28 @@ wflw_fit_mars <- workflow() |>
 ```
 
 
-### Multivariate Adaptative Regression Splines
+###  GLMNET
 ```{r}
+#| echo: false
+#| warning: false
+
 model_spec_glmnet <- linear_reg(
     mode = "regression", 
     penalty = 0.15
 ) |> set_engine("glmnet")
 
-recipe_spec_timeseries <- recipe(close ~ date, data = training(splits)) |> 
+recipe_spec_timeseries <- recipe(close ~ ., data = training(splits)) |> 
     step_timeseries_signature(date) 
 
 
+bake(prep(recipe_spec_timeseries), new_data = training(splits))
+
 recipe_spec_final <- recipe_spec_timeseries |> 
-    step_fourier(date, period = c(252/4, 252), K = 3) %>%
-    step_rm(date) %>%
+    step_fourier(date, period = c(253/4, 253), K = 7) |> 
+    step_rm(date) |> 
     step_rm(contains("iso"), contains("minute"), contains("hour"),
-            contains("am.pm"), contains("xts")) %>%
-    step_normalize(contains("index.num"), date_year) %>%
+            contains("am.pm"), contains("xts")) |> 
+    step_normalize(contains("index.num"),  date_wday, date_day, date_qday) |> 
     step_dummy(contains("lbl"), one_hot = TRUE) 
 
 juice(prep(recipe_spec_final))
@@ -178,71 +403,185 @@ wflw_fit_glmnet <- workflow() |>
 ```
 
 
-
 ## Sumário dos modelos
 ```{r}
+#| echo: true
+#| warning: false
+#| label: tbl-accuracy_test
+#| tbl-cap: 'Sumário dos modelos'
+
 models_tbl <- modeltime_table(
     model_fit_arima_no_boost,
     model_fit_arima_boost,
     model_fit_ets,
     model_fit_prophet,
+    model_fit_prophet_boost,
     model_fit_lm,
-    wflw_fit_mars,
+   # wflw_fit_mars,
     wflw_fit_glmnet
-    
+
 )
 
 models_tbl
 ```
 
-## Calibração dos modelos aos dados de teste
+## Ajuste dos modelos aos dados de teste
 
 ```{r}
+#| echo: true
+#| warning: false
+#| label: tbl-accuracy_test
+#| tbl-cap: 'Tabela de modelos e ajuste aos dados de teste'
 
 calibration_tbl <- models_tbl %>%
     modeltime_calibrate(new_data = testing(splits))
+
 calibration_tbl
+
 ```
 
 
 ## Testando as previsões e avaliação de acurácia
 
-### Visualização do teste de previsão
+### Visualização das previsões em relação aos dados de teste
 ```{r}
-
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-train_test_sets
+#| fig-cap: "Previsões em relação aos dados de teste"
+#| 
 calibration_tbl |> 
-    modeltime_forecast(new_data = testing(splits), actual_data = close_clean) |> 
+    modeltime_forecast(new_data = testing(splits), actual_data = close_clean |> filter(date > '2019-12-31')) |> 
     plot_modeltime_forecast(
-         .interactive = T
-         )
+         .interactive = T, .plotly_slider = T,
+         ) |> layout(title = "Modelos de previsão para o Ibovespa a partir de janeiro de 2021")
 ```
-### Medição de acurácia
+
+### Medição de acurácia das previsões em relação aos dados de teste
 
 ```{r}
+#| echo: false
+#| warning: false
+#| label: tbl-accuracy_test
+#| tbl-cap: 'Métricas de acurácia - previsão x dados de teste'
+#| 
 calibration_tbl %>%
     modeltime_accuracy() %>%
     table_modeltime_accuracy(
-        .interactive = F
+        .interactive = F,
+        .title = 'Métricas de acurácia - previsão x dados de teste'
     )
 ```
 
 ### Refit para o dataset completo e previsão fora-da-amostra
 
 ```{r}
-refit_tbl <- calibration_tbl %>%
+#| echo: False
+#| warning: false
+#| fig-cap: 'Previsões para 20 dias fora da amostra'
+#| label: fig-fct_out_of_sample
+  
+refit_tbl <- calibration_tbl |> 
     modeltime_refit(data = close_clean)
 
-refit_tbl %>%
-    modeltime_forecast(h = "30 days", actual_data = close_clean) %>%
-    plot_modeltime_forecast(
-      .interactive      = T
-    )
+fct_refit <- refit_tbl |> 
+    modeltime_forecast(h = "20 days", actual_data = close_clean |> filter(date > '2024-01-01'))
+
+fct_refit |> plot_modeltime_forecast(.interactive = T) |> layout(title = 'Previsões para 20 dias fora da amostra')
 ```
+
+
+### Comparação entre previsto e real
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: tbl-accuracy_oos
+#| tbl-cap: 'Métricas de acurácia - previsão x dados reais fora da amostra'
+
+actual_oos <- ibovespa |> select(c(close, date)) |> filter(date >='2024-02-01')
+
+fct_tbl <- fct_refit |> select(c(.model_desc, .index, .value)) |> 
+  filter(.model_desc != 'ACTUAL') |> 
+  rename(date = .index, close = .value) 
+
+models_list <- fct_tbl$.model_desc |> unique()
+
+accuracy_tbl <- c()
+
+for (m in models_list){
+  fct_m <- fct_tbl |> filter(.model_desc == m) |> select(c(date,close)) 
+  actual_fct <- merge(actual_oos,fct_m, by = "date")
+  
+  mae <- c(Metrics::mae(actual_fct$close.x, actual_fct$close.y))
+  mape <- c(Metrics::mape(actual_fct$close.x, actual_fct$close.y)) * 100
+  mase <- c(Metrics::mase(actual_fct$close.x, actual_fct$close.y))
+  rmse <- c(Metrics::rmse(actual_fct$close.x, actual_fct$close.y))
+  
+  accuracy_tbl <- bind_rows(accuracy_tbl,
+                            tibble(MAE = mae, 
+                                   MAPE = mape, 
+                                   MASE = mase, 
+                                   RMSE = rmse))
+}
+
+accuracy_tbl <- bind_cols(model = models_list, accuracy_tbl)  
+
+kable(accuracy_tbl, 
+      caption = "Métricas de acurácia - previsão (fora da amostra) x valores reais",
+      digits = 2) |> kable_styling(full_width = FALSE, 
+                position = "center") |> 
+  column_spec(1, bold = TRUE) 
+
+
+```
+
+### Escolha de modelos utilizando AutoML(H2O)
 
 
 ```{r}
 
-refit_tbl |> modeltime_accuracy()
+recipe_spec <- recipe(close ~ ., data = training(splits)) %>%
+    step_timeseries_signature(date) 
+train_tbl <- training(splits) #%>% bake(prep(recipe_spec), .)
+test_tbl  <- testing(splits) #%>% bake(prep(recipe_spec), .)
+# Initialize H2O
+h2o.init(
+    nthreads = 6,
+    ip       = 'localhost',
+    port     = 54321
+)
+
+
+model_spec <- automl_reg(mode = 'regression') %>%
+    set_engine(
+        engine                     = 'h2o',
+        max_runtime_secs           = 10, 
+        max_runtime_secs_per_model = 5,
+        max_models                 = 10,
+        nfolds                     = 5,
+        exclude_algos              = NULL,
+        verbosity                  = NULL,
+        seed                       = 786,
+        sort_metric                = 'MAE' 
+    ) 
+
+
+model_fit_automl <- model_spec |> 
+    fit(close ~ ., data = train_tbl)
+
+automl_leaderboard(model_fit_automl)
+
+#predict(model_fit_automl, test_tbl)
+#GBM_4_AutoML_2_20240309_172922
+```
+
+```{r}
+h2o.shutdown(prompt = FALSE)
 
 ```
+
+
+
 
