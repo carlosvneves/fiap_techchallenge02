@@ -353,6 +353,6 @@ anomalize_close_reg |> timetk::plot_anomalies_cleaned(.date_var = date,
 save(list=c('anomalize_close_reg','close_clean','close_ts', 'ibovespa'), file='explore.out.RData')
 ```
 
-Tendo em vista que a série "limpa" possui menor quantidade de valores extremos, esta será, portanto, aquela que tomaremos como base para realizar a nossa modelagem e previsão.
+Tendo em vista que a série "limpa" possui menor quantidade de valores extremos, esta será, portanto, aquela que tomaremos como base para realizar a nossa [modelagem e previsão](models.html).
 
 :::

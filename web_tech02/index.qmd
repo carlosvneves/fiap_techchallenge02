@@ -1,6 +1,13 @@
 ---
-title: "web_tech02"
+code-fold: true
+editor: 
+  markdown: 
+    wrap: sentence
+tbl-cap-location: bottom
+prefer-html: true
+title: "Alura+Pós-Tech - TechChallenge 02 - 3DTAT - Data Analytics"
 ---
+
 ```{r import_libs}
 #| echo: false
 #| message: false
