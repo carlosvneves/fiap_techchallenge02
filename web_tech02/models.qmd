@@ -146,7 +146,7 @@ O primeiro passo para o treinamento de modelos mais sofisticados é a divisão d
 #| echo: false
 #| message: false
 #| warning: false
-#| label: fig-train_test_sets
+#| label: fig-train_test_sets_1
 #| fig-cap: "Ibovespa fechamento - Conjuntos de Teste e Treino"
 
 # divide entre teste e treino
@@ -182,9 +182,10 @@ Os modelos a seguir serão ajustados utilizando a biblioteca [timetk](https://bu
 A função _arima_reg()_ é uma maneira de gerar uma especificação de um modelo ARIMA e retorna o melhor modelo de acordo com os valores AIC, AICc ou BIC. A função realiza uma busca pelos possíveis modelos dentro das restrições de ordem fornecidas.
 
 ```{r}
-#|echo: True
-#|warning: False
-#| cache: true
+#|echo: false
+#|warning: false
+#|cache: true
+#|code-fold: show
 
 model_fit_arima_no_boost <- arima_reg(
         # ARIMA args
@@ -198,8 +199,6 @@ model_fit_arima_no_boost <- arima_reg(
 ) |> 
     set_engine(engine = "auto_arima") |> 
     fit(close ~ date, data = training(splits))
-
-model_fit_arima_no_boost
 ```
 
 ### AUTO-ARIMA (Boost) 
@@ -212,9 +211,12 @@ A função _arima_boost()_ é uma forma de gerar a especificação de um modelo 
 Iremos usar o _auto_arima_xgboost_ para que o algoritmo escolha automaticamente os parâmetros que melhor ajustam o modelo.
 
 ```{r}
-#|echo: True
-#|warning: False
-#| cache: true
+#|echo: false
+#|message: false  
+#|warning: false
+#|cache: true
+#|code-fold: show
+
 
 model_fit_arima_boost <- arima_boost(
     # ARIMA args
@@ -241,14 +243,18 @@ model_fit_arima_boost <- arima_boost(
         + factor(lubridate::week(date)), 
         data = training(splits))
 
-model_fit_arima_boost
 ```
 
 ### Exponential Smoothing
+
+Em seguida, crie um modelo Error-Trend-Season (ETS) usando um modelo _state-space_ de suavização exponencial. Isso é feito com _exp_smoothing()_.
+
 ```{r}
-#| echo: false
-#| warning: false
-#| cache: true
+#|echo: false
+#|message: false
+#|warning: false
+#|cache: true
+#|code-fold: show
 
 model_fit_ets <- exp_smoothing(trend = "additive", 
                                season = "auto", 
@@ -261,10 +267,14 @@ model_fit_ets <- exp_smoothing(trend = "additive",
 
 ### Prophet
 
+O modelo seguinte é o _Prophet_ utilizando _prophet_reg()_. Neste modelo foram inseridas informações sobre os _lockdowns_ ocorridos em 2020 e 2021 no Estado de São Paulo. Vale ressaltar que os _lockdowns_ foram bastante simplificados, tendo em vista que não foi possível homogeneizar as informações. 
+
 ```{r}
-#| echo: false
-#| warning: false
-#| cache: true
+#|echo: false
+#|message: false
+#|warning: false
+#|cache: true
+#|code-fold: show
 
 
 lockdown1 <- tibble(holiday = 'lockdown',  
@@ -294,13 +304,17 @@ model_fit_prophet <- prophet_reg(seasonality_weekly = T,
 
 
 ```
+
 ### Prophet (Boost)
 
-```{r}
-#| echo: false
-#| warning: false
-#| cache: true
+Este modelo é do tipo _Prophet_ utilizando _prophet_boost()_. É um modelo similar ao anterior, porém utiliza o _boosting_ como uma forma de gerar a especificação de um modelo de séries temporais para aprimorar erros de modelagem (resíduos). Neste modelo não foram inseridas informações sobre os _lockdowns_. 
 
+```{r}
+#|echo: false
+#|message: false
+#|warning: false
+#|cache: true
+#|code-fold: show
 
 model_fit_prophet_boost <- prophet_boost(mode="regression",
                                          seasonality_weekly = T, 
@@ -329,11 +343,19 @@ model_fit_prophet_boost <- prophet_boost(mode="regression",
 
 ```
 
-### Linear Regression (Parsip)
+### Regressão Linear (Parsip)
+
+Podemos modelar uma regressão linear de série temporal (TSLM) usando o algoritmo _linear_reg()_. Os seguintes regressores derivados de _date_ são usados:
+
+- Tendência: modelada usando _as.numeric(date)_;
+- Sazonalidade: modelado usando _month(date)_ e _week(date)_.
+
 ```{r}
-#| echo: false
-#| warning: false
-#| cache: true
+#|echo: false
+#|message: false
+#|warning: false
+#|cache: true
+#|code-fold: show
 
 model_fit_lm <- linear_reg() |> 
     set_engine("lm") |> 
@@ -341,13 +363,19 @@ model_fit_lm <- linear_reg() |>
         + factor(lubridate::month(date, label=T), ordered = FALSE)
         + factor(lubridate::week(date)), 
         data = training(splits))
-
-
 ```
 
 ###  GLMNET
+
+
+O modelo _glmnet_ é um método de regressão que combina as técnicas de Lasso e Ridge para seleção de variáveis e regularização. Ele funciona através da minimização de uma função de custo que inclui o erro quadrático médio e um termo de penalização que controla a complexidade do modelo.
+
+Abaixo é utilizado um fluxo de trabalho para padronizar o pré-processamento dos recursos fornecidos ao modelo de aprendizado de máquina.
+
+
 ```{r}
 #| echo: false
+#| message: false
 #| warning: false
 #| cache: true
 
@@ -379,11 +407,14 @@ wflw_fit_glmnet <- workflow() |>
 ```
 
 ## Sumário dos modelos
+
+A lista de modelos adotados está a seguir:
+
 ```{r}
 #| echo: true
 #| warning: false
-#| label: tbl-accuracy_test
-#| tbl-cap: 'Sumário dos modelos'
+#| label: tbl-models_table
+#| tbl-cap: 'Lista de modelos'
 
 models_tbl <- modeltime_table(
     model_fit_arima_no_boost,
@@ -396,7 +427,12 @@ models_tbl <- modeltime_table(
 
 )
 
-models_tbl
+kable(tibble(Modelos = models_tbl$.model_desc), 
+      caption = "List de modelos",) |> 
+      kable_styling(full_width = FALSE, 
+                position = "center") |> 
+  column_spec(1, bold = TRUE) 
+
 ```
 
 ## Ajuste dos modelos aos dados de teste
@@ -404,26 +440,35 @@ models_tbl
 ```{r}
 #| echo: true
 #| warning: false
-#| label: tbl-accuracy_test
+#| label: tbl-accuracy_test_1
 #| tbl-cap: 'Tabela de modelos e ajuste aos dados de teste'
 #| cache: true
 #| 
-calibration_tbl <- models_tbl %>%
+calibration_tbl <- models_tbl |> 
     modeltime_calibrate(new_data = testing(splits))
 
-calibration_tbl
 
+kable(tibble(Modelo = calibration_tbl$.model_desc,
+             Tipo = calibration_tbl$.type), 
+      caption = "Modelos e ajuste aos dados de treino") |> 
+      kable_styling(full_width = FALSE, 
+                position = "center") |> 
+  column_spec(1, bold = TRUE) 
 ```
 
 
 ## Testando as previsões e avaliação de acurácia
 
 ### Visualização das previsões em relação aos dados de teste
+
+A @fig-fct_test permite comparar os diversos modelos aos dados de teste. Os modelos **Prophet**, **Prophet Boost**, **LM** e **GLMNET** são, aparentemente, aqueles que conseguem melhor captar o padrão sazonal e de tendência da série original. Os outros modelos apresentam um comportamento mais _flat_.
+
+
 ```{r}
 #| echo: false
 #| message: false
 #| warning: false
-#| label: fig-train_test_sets
+#| label: fig-fct_test
 #| fig-cap: "Previsões em relação aos dados de teste"
 #| cache: true
 
@@ -435,6 +480,8 @@ calibration_tbl |>
 ```
 
 ### Medição de acurácia das previsões em relação aos dados de teste
+
+Na @tbl-accuracy_test podemos ver a acurácia dos modelos em relação aos dados de teste. 
 
 ```{r}
 #| echo: false
@@ -451,7 +498,13 @@ calibration_tbl %>%
     )
 ```
 
+Tomando o MAPE como métrica, podemos verificar que os modelos **LM** e **GLMNET** são os que apresentam menor erro. Chama a atenção o fato de que, apesar de não conseguirem captar os padrões de tendência e sazonalidade, os modelos ARIMA(com e sem _boosting_) e **ETS** conseguem apresentar um MAPE menor que dos modelos do tipo **PROPHET**.  
+
 ### Refit para o dataset completo e previsão fora-da-amostra
+
+Uma vez satisfeitos com nosso conjunto de modelos, podemos aplicar _modeltime_refit()_ no conjunto de dados completo e fazer previsões para fora da amostra, incluindo os intervalos de confiança.
+
+Como o conjunto de dados disponível fora da amostra (conjuntos de teste e treino) é de 20 dias, este é o número de períodos adiante para os quais faremos as previsões. Estas previsões poderão então ser comparadas aos índices diários de fechamento efetivamente realizados.
 
 ```{r}
 #| echo: False
@@ -461,20 +514,261 @@ calibration_tbl %>%
 #| cache: true
   
 refit_tbl <- calibration_tbl |> 
-    modeltime_refit(data = close_clean)
+    modeltime_refit(data = close_data)
 
 fct_refit <- refit_tbl |> 
-    modeltime_forecast(h = "20 days", actual_data = close_clean |> filter(date > '2023-11-01'))
+    modeltime_forecast(h = "20 days", actual_data = close_data)
 
-fct_refit |> plot_modeltime_forecast(.interactive = T) |> layout(title = 'Previsões para 20 dias fora da amostra')
+fct_refit |> plot_modeltime_forecast(.interactive = T, .plotly_slider = T) |> layout(title = 'Previsões para 20 dias fora da amostra')
 ```
 
+## Modelo ensemble
 
-### Comparação entre previsto e real
+Mostramos na seção anterior que temos diferentes modelos preditivos com diferentes _features_ e abordagens. Neste caso, ao invés de avaliar separadamente cada modelo, poder ser interessante combiná-los em um único modelo. 
+
+A técnica de _ensemble_ combina então as previsões de diferentes modelos para melhorar a acurácia. As duas técnicas mais comuns são:
+- Averaging (Média/Mediana): Combina as previsões de vários modelos, geralmente de forma simples, como a média ponderada.
+- Stacking (Empilhamento): Combina as previsões de vários modelos através de um meta-modelo. O meta-modelo aprende a combinar as previsões de forma mais complexa, levando em conta as correlações entre elas.
+
+Abaixo aplicaremos a técnica da mediana do conjunto de modelos, uma vez que esta medida de tendência central é menos sensível à existência de _outliers_. Outro ponto é que escolhemos quatro modelos para o _ensemble_, com base no seu desempenho avaliado até então: **Prophet**, **Prophet Boost**, **LM** e **GLMNET**.
+
+```{r}
+#| echo: False
+#| warning: false
+#| tbl-cap: 'Modelos para ensemble'
+#| label: tbl-ensemble_models
+#| cache: true
+
+# melhores modelos da etapa anterior
+ensemble_fit <- models_tbl[4:7,] |>  
+    modeltime.ensemble::ensemble_average(type = "median")
+
+
+
+kable(tibble(Modelos = ensemble_fit$model_tbl$.model_desc),
+      caption = "Modelos para ensemble",) |> 
+      kable_styling(full_width = FALSE, 
+                position = "center") |> 
+  column_spec(1, bold = TRUE) 
+```
+
+O gráfico da @fig-ensemble_models mostra que o modelo aparentemente possui uma boa performance, inclusive ao captar os padrões de tendência e sazonalidade da série original.
+
+```{r}
+#| echo: False
+#| warning: false
+#| fig-cap: 'Modelo ensemble - previsão x teste'
+#| label: fig-ensemble_models
+#| cache: true
+
+
+calibration_tbl_ensemble <- modeltime_table(
+    ensemble_fit
+) |> 
+    modeltime_calibrate(testing(splits), quiet = FALSE)
+
+# Forecast vs Test Set
+calibration_tbl_ensemble |> 
+    modeltime_forecast(
+        new_data    = testing(splits),
+        actual_data = close_clean 
+    ) |> 
+    plot_modeltime_forecast(.interactive = T,.plotly_slider = T) |> layout(title='Previsão do modelo ensemble - teste')
+```
+
+A @tbl-calibration_esemble mostra que o modelo _ensemble_, de fato, apresenta uma acurácia maior que a de qualquer dos modelos tomados individualmente. 
+
+```{r}
+#| echo: False
+#| warning: false
+#| tbl-cap: 'Métricas de acurácia do modelo ensemble'
+#| label: tbl-calibration_esemble
+#| cache: true
+
+calibration_tbl_ensemble |> 
+    modeltime_accuracy() |> 
+    table_modeltime_accuracy(
+        .interactive = F,
+        .title = 'Métricas de acurácia do modelo ensemble'
+    )
+```
+
+### Refit para o dataset completo e previsão fora-da-amostra
+
+A seguir fazemos o _refit_ para o modelo _ensemble_, da mesma forma que foi feito para os modelos individualmente.
+
+```{r}
+#| echo: False
+#| warning: false
+#| fig-cap: 'Previsões para 20 dias fora da amostra'
+#| label: fig-fct_out_of_sample_ensemble
+#| cache: true
+  
+refit_tbl_ensemble <- calibration_tbl_ensemble |> 
+    modeltime_refit(data = close_data)
+
+fct_refit_ensemble <- refit_tbl_ensemble |> 
+    modeltime_forecast(h = "20 days", actual_data = close_data )
+
+fct_refit_ensemble |> plot_modeltime_forecast(.interactive = T, .plotly_slider = T) |> layout(title = 'Previsões para 20 dias fora da amostra - ensemble')
+```
+
+ Interessante notarmos que, ao contrário do ocorrido para os valores de teste, na previsão completamente fora do amostra inicial, o modelo não parece performar bem.
+
+
+
+ 
+## Modelos utilizando AutoML(H2O)
+
+Todos os passos anteriormente descritos foram novamente aplicados, porém utilizando o _H2O AUTOML_. 
+
+O _H2O AutoML_ para previsão é implementado via _automl_reg()_. Esta função treina e faz validação cruzada de vários modelos de aprendizado de máquina (XGBoost GBM, GLMs, Random Forest, GBMs…) e, em seguida, treina dois modelos _Stacked Ensembled_, um de todos os modelos e um dos melhores modelos de cada tipo . Finalmente, o melhor modelo é selecionado com base em uma métrica de parada.
+
+Os melhores modelos estão na @tbl-leaderboard_automl. 
 
 ```{r}
 #| echo: false
 #| warning: false
+#| tbl-cap: 'Previsões para 20 dias fora da amostra'
+#| label: tbl-leaderboard_automl
+#| cache: true
+
+
+splits_id <- initial_time_split(close_data, prop = 0.85)
+train_s <- training(splits_id)
+test_s <- testing(splits_id)
+
+recipe_spec <- recipe(close ~ ., data = train_s) |> 
+    step_timeseries_signature(date)
+train_tbl <- train_s %>% bake(prep(recipe_spec), .)
+test_tbl  <- test_s %>% bake(prep(recipe_spec), .)
+
+
+# Initialize H2O
+h2o.init(
+    nthreads = 6,
+    ip       = 'localhost',
+    port     = 54321
+)
+#
+#
+model_spec <- automl_reg(mode = 'regression') %>%
+    set_engine(
+        engine                     = 'h2o',
+        max_runtime_secs           = 10,
+        max_runtime_secs_per_model = 5,
+        max_models                 = 10,
+        nfolds                     = 5,
+        exclude_algos              = NULL,
+        verbosity                  = NULL,
+        seed                       = 786,
+        sort_metric                = 'MAE'
+    )
+#
+#
+model_fit_automl <- model_spec |>
+    fit(close ~ ., data = train_tbl)
+
+kable(automl_leaderboard(model_fit_automl),caption = 'Melhores modelos segundo o AutoML', digits = 2) |>  
+  kable_styling(full_width = FALSE, position = "center") |> 
+  column_spec(1, bold = TRUE) 
+
+```
+
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| tbl-cap: 'Métricas de acurácia do modelo AutoML'
+#| label: tbl-calibration_automl
+#| cache: true
+
+modeltime_tbl_automl <- modeltime_table(
+    model_fit_automl
+) 
+
+calibration_tbl_automl <- modeltime_tbl_automl |> 
+  modeltime_calibrate(test_tbl)  
+
+
+calibration_tbl_automl |> 
+    modeltime_accuracy() |> 
+    table_modeltime_accuracy(
+        .interactive = F,
+        .title = 'Métricas de acurácia do modelo AutoML'
+    )
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: 'Modelo AutoML - previsão x teste'
+#| label: fig-fct_automl_test
+#| cache: true
+
+
+calibration_tbl_automl |> 
+    modeltime_forecast(
+        new_data    = test_tbl,
+        actual_data = close_data,
+        keep_data   = TRUE
+    ) |> 
+    plot_modeltime_forecast(
+        .interactive = T,
+        .plotly_slider = T,
+        .title = 'Modelo AutoML - previsão x teste'
+        
+    )
+```
+
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-cap: 'Previsões para 20 dias fora da amostra'
+#| label: fig-fct_out_of_sample_automl
+#| cache: true
+
+data_prepared_tbl <- bind_rows(train_tbl, test_tbl)
+
+future_tbl <- data_prepared_tbl |> 
+    future_frame(.date_var = date,
+                 .length_out = "20 days") |> mutate(id='CLOSE', .before = date)
+
+future_prepared_tbl <- bake(prep(recipe_spec), future_tbl)
+
+refit_tbl_automl <- modeltime_tbl_automl |> 
+    modeltime_refit(data_prepared_tbl)
+
+fct_refit_automl <-  refit_tbl_automl |> modeltime_forecast(
+        new_data    = future_prepared_tbl,
+        actual_data = data_prepared_tbl,
+        keep_data   = TRUE
+    )
+
+fct_refit_automl |> 
+    plot_modeltime_forecast(
+        .plotly_slider = TRUE,
+        .interactive = TRUE,
+        .title = 'Previsões para 20 dias fora da amostra'
+    )
+```
+
+### Comparação entre previsto e real
+
+Na @tbl-accuracy_oos temos as métricas de acurácia para cada um dos modelos, comparando as previsões fora da amostra com os valores efetivamente observados de 01/02/2024 a 23/02/2024. Os valores são comparados estritamente com os dias em que o pregão ocorreu.
+
+Surpreendentemente, o modelo **ARIMA(0,1,0) W/ XGBOOST ERRORS** é aquele com o menor MAPE. Por outro lado, os modelos do tipo **PROPHET** e **ENSEMBLE** parecem ser os mais equilibrados, pois possuem um MAPE pequeno, ao mesmo tempo em que sabemos a capacidade que eles possuem em captar os padrões de tendência e sazonalidade. 
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
 #| label: tbl-accuracy_oos
 #| tbl-cap: 'Métricas de acurácia - previsão x dados reais fora da amostra'
 
@@ -483,6 +777,17 @@ actual_oos <- ibovespa |> select(c(close, date)) |> filter(date >='2024-02-01')
 fct_tbl <- fct_refit |> select(c(.model_desc, .index, .value)) |> 
   filter(.model_desc != 'ACTUAL') |> 
   rename(date = .index, close = .value) 
+
+fct_tbl <- fct_tbl |> bind_rows(fct_refit_ensemble |> select(c(.model_desc, .index, .value)) |> 
+  filter(.model_desc != 'ACTUAL') |> 
+  rename(date = .index, close = .value) 
+  )
+
+fct_tbl <- fct_tbl |> bind_rows(fct_refit_automl |> select(c(.model_desc, .index, .value)) |> 
+  filter(.model_desc != 'ACTUAL') |> 
+  rename(date = .index, close = .value) 
+  )
+
 
 models_list <- fct_tbl$.model_desc |> unique()
 
@@ -503,10 +808,11 @@ for (m in models_list){
                                    MAPE = mape, 
                                    MASE = mase,
                                    SMAPE = smape,
-                                   RMSE = rmse))
+                                   RMSE = rmse)) 
 }
 
 accuracy_tbl <- bind_cols(Modelo = models_list, accuracy_tbl)  
+accuracy_tbl <- accuracy_tbl |> arrange(MAPE)
 
 kable(accuracy_tbl, 
       caption = "Métricas de acurácia - previsão (fora da amostra) x valores reais",
@@ -517,51 +823,15 @@ kable(accuracy_tbl,
 
 ```
 
-### Escolha de modelos utilizando AutoML(H2O)
 
+# Conclusões
 
-```{r}
+::: {style="text-align: justify"}
 
-recipe_spec <- recipe(close ~ ., data = training(splits)) %>%
-    step_timeseries_signature(date) 
-train_tbl <- training(splits) #%>% bake(prep(recipe_spec), .)
-test_tbl  <- testing(splits) #%>% bake(prep(recipe_spec), .)
-# Initialize H2O
-h2o.init(
-    nthreads = 6,
-    ip       = 'localhost',
-    port     = 54321
-)
+- Todos os modelos atendem o requisito estabelecido, ou seja, todos possuem acurácia maior que 70%;
+- Dos modelos testados, **PROPHET** e **ENSEMBLE** parecem ser os mais equilibrados, pois possuem um MAPE pequeno, ao mesmo tempo em que sabemos a capacidade que eles possuem em captar os padrões de tendência e sazonalidade;
+- O modelo **AutoML** possui um bom desempenho no conjunto de teste, inclusive captando os padrões de tendência e sazonalidade;
+- A previsão fora da amostra conforme apresentado neste estudo não deve ser o único critério para a escolha do modelo. Outros fatores como a análise do comportamento gráfico podem ser tão ou mais importantes.
 
-
-model_spec <- automl_reg(mode = 'regression') %>%
-    set_engine(
-        engine                     = 'h2o',
-        max_runtime_secs           = 10, 
-        max_runtime_secs_per_model = 5,
-        max_models                 = 10,
-        nfolds                     = 5,
-        exclude_algos              = NULL,
-        verbosity                  = NULL,
-        seed                       = 786,
-        sort_metric                = 'MAE' 
-    ) 
-
-
-model_fit_automl <- model_spec |> 
-    fit(close ~ ., data = train_tbl)
-
-automl_leaderboard(model_fit_automl)
-
-#predict(model_fit_automl, test_tbl)
-#GBM_4_AutoML_2_20240309_172922
-```
-
-```{r}
-h2o.shutdown(prompt = FALSE)
-
-```
-
-
-
+:::
 

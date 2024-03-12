@@ -1,0 +1,4 @@
+- source: project
+  quarto-pub:
+    - id: 2fadbf1f-33f5-46ba-b528-8593d0bf375c
+      url: 'https://carlosveras.quarto.pub/fiap-3dtat-tech02-previsao-ibovespa'

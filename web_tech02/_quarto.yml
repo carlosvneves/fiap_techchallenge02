@@ -23,8 +23,6 @@ website:
         text: Análise Exploratória
       - href: models.qmd
         text: Modelos e previsão
-      - href: about.qmd
-        text: Sobre
 format:
   html:
     theme: 
